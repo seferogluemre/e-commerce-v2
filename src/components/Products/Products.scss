@@ -80,18 +80,7 @@
     transform: scale(1.06); /* Başlangıç boyutuna dönüş */
   }
 }
-// .loading-container {
-//   position: fixed; /* Sabit konumlandırma */
-//   top: 50%; /* Yükseklik yönünde ortalama */
-//   left: 50%; /* En yatay yönünde ortalama */
-//   transform: translate(-50%, -50%); /* Gerçekten ortalamak için */
-//   z-index: 9999; /* Diğer içeriklerin üstünde gözükmesini sağlamak için */
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   width: 100%;
-//   height: 100%;
-// }
+
 .loader-container {
   display: flex;
   justify-content: center;

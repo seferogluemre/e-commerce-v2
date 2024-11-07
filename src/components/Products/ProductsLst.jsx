@@ -18,10 +18,7 @@ import "./Products.scss";
 import { useNavigate } from "react-router-dom";
 
 function ProductsLst() {
-  const {
-    products: { products },
-    loading,
-  } = useSelector((store) => store.products);
+  const { products, loading } = useSelector((store) => store.products);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
