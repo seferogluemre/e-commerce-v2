@@ -3,24 +3,26 @@ import axios from "axios";
 
 export const getAllProducts = createAsyncThunk("getProduct", async () => {
   try {
-    const response = await axios.get(``);
+    const response = await axios.get(
+      `https://api.mercadolibre.com/sites/MLA/search?q=laptop`
+    );
     console.log("Datalar geldi emree", response.data);
-    return response.data;
+    return response.data.results;
   } catch (error) {
     console.log(error);
     throw error;
   }
 });
 
-const initialState = {
+const data = {
   products: [],
   loading: false,
   error: null,
 };
 
-const productSlice = createSlice({
-  name: "product",
-  initialState,
+export const productSlice = createSlice({
+  name: "products",
+  initialState: data,
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getAllProducts.pending, (state) => {
@@ -34,8 +36,8 @@ const productSlice = createSlice({
     });
 
     builder.addCase(getAllProducts.fulfilled, (state, action) => {
-      state.products = action.payload;
       state.loading = false;
+      state.products = action.payload;
     });
   },
 });
