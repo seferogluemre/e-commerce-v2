@@ -1,11 +1,8 @@
-import Navbar from "./components/navbar/navbar";
-import ProductsLst from "./components/Products/ProductsLst";
-
+import Config from "./config/router";
 function App() {
   return (
     <>
-      <Navbar />
-      <ProductsLst />
+      <Config />
     </>
   );
 }

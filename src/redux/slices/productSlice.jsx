@@ -6,8 +6,9 @@ export const getAllProducts = createAsyncThunk("getProduct", async () => {
     const response = await axios.get(
       `https://api.mercadolibre.com/sites/MLA/search?q=laptop`
     );
-    console.log("Datalar geldi emree", response.data);
-    return response.data.results;
+    return {
+      products: response.data.results,
+    };
   } catch (error) {
     console.log(error);
     throw error;
@@ -15,7 +16,10 @@ export const getAllProducts = createAsyncThunk("getProduct", async () => {
 });
 
 const data = {
-  products: [],
+  products: {
+    products: [],
+    categories: "",
+  },
   loading: false,
   error: null,
 };
@@ -37,7 +41,8 @@ export const productSlice = createSlice({
 
     builder.addCase(getAllProducts.fulfilled, (state, action) => {
       state.loading = false;
-      state.products = action.payload;
+      state.products.products = action.payload.products;
+      state.products.categories = action.payload.categories;
     });
   },
 });

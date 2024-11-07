@@ -8,7 +8,6 @@ import {
   CardImg,
   CardText,
   CardHeader,
-  Spinner,
   CardFooter,
 } from "react-bootstrap";
 import { IoBagAdd } from "react-icons/io5";
@@ -16,10 +15,15 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getAllProducts } from "../../redux/slices/productSlice";
 import "./Products.scss";
+import { useNavigate } from "react-router-dom";
 
 function ProductsLst() {
-  const { products, loading } = useSelector((store) => store.products);
+  const {
+    products: { products },
+    loading,
+  } = useSelector((store) => store.products);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getAllProducts());
@@ -54,7 +58,10 @@ function ProductsLst() {
                 <CardHeader className="card-header">
                   <CardImg className="card-img-overlay" src={item.thumbnail} />
                 </CardHeader>
-                <IoBagAdd className="fs-4 addBtn" />
+                <IoBagAdd
+                  className="fs-4 addBtn"
+                  onClick={() => navigate(`/product-detail/${item.id}`)}
+                />
                 <CardBody className="card-body">
                   <CardText className="card-text-price">{item.title}</CardText>
                   <CardText className="card-text fw-bold ">
@@ -64,8 +71,7 @@ function ProductsLst() {
                 {item.seller && (
                   <CardFooter className="fw-light card-footer">
                     <p className="seller-text fw-bold">
-                      {" "}
-                      Satıcı:{" "}
+                      Satıcı:
                       <p className="text-muted fw-medium">
                         {item.seller.nickname || "Satıcı Bulunamadı /:"}
                       </p>
