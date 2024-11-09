@@ -1,17 +1,20 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export const getAllProducts = createAsyncThunk("getProduct", async () => {
-  try {
-    const response = await axios.get(
-      `https://api.mercadolibre.com/sites/MLA/search?q=laptop`
-    );
-    return response.data.results;
-  } catch (error) {
-    console.log(error);
-    throw error;
+export const getAllProducts = createAsyncThunk(
+  "getProduct",
+  async (category = "laptop") => {
+    try {
+      const response = await axios.get(
+        `https://api.mercadolibre.com/sites/MLA/search?q=${category}`
+      );
+      return response.data.results;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
   }
-});
+);
 
 const initialState = {
   products: [],

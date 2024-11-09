@@ -1,31 +1,29 @@
 import React from "react";
 import "./navbar.scss";
-import { Navbar, Container, Nav, NavDropdown } from "react-bootstrap";
+import { Navbar, Container, Nav } from "react-bootstrap";
+import { Link } from "react-router-dom";
+
+const categories = [
+  { id: 1, name: "Laptop", slug: "laptop" },
+  { id: 2, name: "Giyim", slug: "clothes" },
+  { id: 3, name: "Telefon", slug: "phones" },
+  { id: 4, name: "Bakım", slug: "care" },
+];
 
 function navbar() {
   return (
     <div>
       <Navbar expand="lg" className="bg-dark mb-5">
         <Container>
-          <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+          <Navbar.Brand href="#home">E-Commerce</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
-              <Nav.Link href="#home">Home</Nav.Link>
-              <Nav.Link href="#link">Link</Nav.Link>
-              <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">
-                  Another action
-                </NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">
-                  Something
-                </NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">
-                  Separated link
-                </NavDropdown.Item>
-              </NavDropdown>
+              {categories.map((item) => (
+                <Nav.Link className="text-white " key={item.id}>
+                  <Link to={`/products/${item.slug}`}>{item.name}</Link>
+                </Nav.Link>
+              ))}
             </Nav>
           </Navbar.Collapse>
         </Container>

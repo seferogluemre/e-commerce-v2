@@ -18,6 +18,7 @@ import { getAllProducts } from "../../redux/slices/productSlice";
 import "./Products.scss";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 
 // Fiyatları türk tl karşılık formatlama
 const formatPrice = (price) => {
@@ -29,37 +30,62 @@ const formatPrice = (price) => {
   }).format(price);
 };
 
-const knownBrands = ["Lenovo", "Asus", "Hp", "Acer", "Dell", "Samsung"];
+// Kategori bazlı marka listeleri
+const brandsByCategory = {
+  laptop: ["Lenovo", "Asus", "Hp", "Acer", "Dell", "Samsung"],
+  clothes: ["Pack", "Buzo", "Remeras", "Campera"],
+  phones: ["Apple", "İphone", "Refabricado"],
+  care: [
+    "Disco",
+    "Agua",
+    "Karseel",
+    "Mist Facial",
+    "Cicatricure",
+    "Gel Micelar",
+  ],
+};
 
 function ProductsLst() {
   const [selectedBrand, setSelectedBrand] = useState("Hepsi");
   const { products, loading } = useSelector((store) => store.products);
+  const { category } = useParams();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // Burda ise bu fonksiyn dışardan title alıp bizim ürünün başlıgı içerisinde bizim hazırladıgımız ürünlerin başlıkları içeriyorsa bunu deger dönüyor
+  // Aktif kategorinin markalarını al
+  const currentBrands = brandsByCategory[category] || brandsByCategory.laptop;
+
+  // Marka çıkarma fonksiyonunu güncelle
   const extractBrand = (title) => {
-    const foundBrand = knownBrands.find((brand) => title.includes(brand));
+    const foundBrand = currentBrands.find((brand) =>
+      title.toLowerCase().includes(brand.toLowerCase())
+    );
     return foundBrand || "Hepsi";
   };
 
-  // Burda ise ürünlerimiz üzerinde filtreleme yapıyoruz. Seçenek hepsi ise veya bizim extrBrn gelcek olan title degeri seçilen seçenege eşit ise filtreleme çalışıyor
+  // Filtreleme işlemi aynı kalabilir
   const filteredProducts = products.filter((product) => {
     return (
       selectedBrand === "Hepsi" || extractBrand(product.title) === selectedBrand
     );
   });
 
+  // Kategori değiştiğinde seçili markayı sıfırla
+  useEffect(() => {
+    setSelectedBrand("Hepsi");
+  }, [category]);
+
+  // API çağrısını güncelle - category değiştiğinde tekrar çağrılsın
+  useEffect(() => {
+    dispatch(getAllProducts(category || "laptop"));
+  }, [dispatch, category]);
+
   // Bütün ürünleri gezerek extractBranda title degerini parametre gönderdik
   const uniqueBrands = [
     "Hepsi",
     ...new Set(products.map((product) => extractBrand(product.title))),
   ];
-
-  useEffect(() => {
-    dispatch(getAllProducts());
-  }, [dispatch]);
 
   if (loading) {
     return (
