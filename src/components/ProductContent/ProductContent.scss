@@ -1,0 +1,20 @@
+.product-container {
+  margin: 80px auto;
+
+  .row {
+    box-shadow: 0 5px 12px gray;
+    padding: 20px;
+
+    .col-lg-3 {
+      width: 12%;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+
+      .product-image {
+        width: 100px;
+        height: 100px;
+      }
+    }
+  }
+}

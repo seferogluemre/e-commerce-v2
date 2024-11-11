@@ -46,7 +46,7 @@ const brandsByCategory = {
 };
 
 function ProductsLst() {
-  const [selectedBrand, setSelectedBrand] = useState("Hepsi");
+  const [selectedBrand, setSelectedBrand] = useState("All");
   const { products, loading } = useSelector((store) => store.products);
   const { category } = useParams();
 
@@ -61,19 +61,19 @@ function ProductsLst() {
     const foundBrand = currentBrands.find((brand) =>
       title.toLowerCase().includes(brand.toLowerCase())
     );
-    return foundBrand || "Hepsi";
+    return foundBrand || "All";
   };
 
-  // Filtreleme işlemi aynı kalabilir
+  // Filtreleme işlemi -----
   const filteredProducts = products.filter((product) => {
     return (
-      selectedBrand === "Hepsi" || extractBrand(product.title) === selectedBrand
+      selectedBrand === "All" || extractBrand(product.title) === selectedBrand
     );
   });
 
   // Kategori değiştiğinde seçili markayı sıfırla
   useEffect(() => {
-    setSelectedBrand("Hepsi");
+    setSelectedBrand("All");
   }, [category]);
 
   // API çağrısını güncelle - category değiştiğinde tekrar çağrılsın
@@ -83,7 +83,7 @@ function ProductsLst() {
 
   // Bütün ürünleri gezerek extractBranda title degerini parametre gönderdik
   const uniqueBrands = [
-    "Hepsi",
+    "All",
     ...new Set(products.map((product) => extractBrand(product.title))),
   ];
 
@@ -101,9 +101,10 @@ function ProductsLst() {
 
   return (
     <div>
-      <div className="text-center">
+      <div className="text-center d-flex justify-content-center">
         <FormSelect
           value={selectedBrand}
+          className="mb-5 filter-selectbox"
           onChange={(e) => setSelectedBrand(e.target.value)}
         >
           {uniqueBrands.map((item, index) => (
