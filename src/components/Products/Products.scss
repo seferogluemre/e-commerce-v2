@@ -1,9 +1,9 @@
 .card {
   width: 280px;
-  height: 580px;
+  height: 450px;
   padding: 10px;
   border: none !important;
-  box-shadow: 0 0 15px #4a4947;
+  box-shadow: 0 0 13px #3b3b3b;
   border-radius: 10px;
   position: relative;
   cursor: pointer;
@@ -12,7 +12,7 @@
   color: black !important;
 
   &:hover {
-    transform: scale(1.01) translateY(-5px);
+    box-shadow: 0 0 19px #000000;
   }
   .addBtn {
     position: absolute;
@@ -62,10 +62,14 @@
   .card {
     border: 0px !important;
     width: auto !important;
-    height: 600px;
+    height: 400px;
     .card-body {
-      padding: 95% 20px;
+      padding: 65% 20px;
     }
+  }
+  .col-sm-6 {
+    width: 49%;
+    flex: 49%;
   }
 }
 @keyframes btnEffect {
@@ -73,7 +77,7 @@
     transform: scale(1.06);
   }
   25% {
-    transform: scale(1.4); /* Büyüme */
+    transform: scale(1.2); /* Büyüme */
   }
   50% {
     transform: scale(1.08); /* Orta boyut */

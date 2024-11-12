@@ -5,12 +5,103 @@ import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { setSelectedProduct } from "../../redux/slices/productSlice";
 import { useDispatch } from "react-redux";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Accordion, AccordionItem } from "react-bootstrap";
 import { FaStar } from "react-icons/fa";
 import { FcApproval } from "react-icons/fc";
 import { CiFaceSmile } from "react-icons/ci";
-import { BiSmile } from "react-icons/bi";
+// import { BiSmile } from "react-icons/bi";
 import "./ProductDetail.scss";
+import { IoMdAdd } from "react-icons/io";
+import { FiMinus } from "react-icons/fi";
+import { SiAdguard } from "react-icons/si";
+import ReviewsSlider from "/src/components/reviewsSlider/ReviewsSlider";
+
+import Slider from "react-slick";
+import { Card, CardText, CardHeader } from "react-bootstrap";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+
+const CustomPrevArrow = (props) => {
+  const { onClick } = props;
+  return (
+    <button
+      className="slick-prev"
+      onClick={onClick}
+      style={{
+        left: "-40px",
+        zIndex: 1,
+        background: "#007bff",
+        width: "32px",
+        height: "32px",
+        borderRadius: "50%",
+        border: "none",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        cursor: "pointer",
+      }}
+    >
+      <FaChevronLeft color="white" />
+    </button>
+  );
+};
+
+const CustomNextArrow = (props) => {
+  const { onClick } = props;
+  return (
+    <button
+      className="slick-next"
+      onClick={onClick}
+      style={{
+        right: "-40px",
+        zIndex: 1,
+        background: "#007bff",
+        width: "32px",
+        height: "32px",
+        borderRadius: "50%",
+        border: "none",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        cursor: "pointer",
+      }}
+    >
+      <FaChevronRight color="white" />
+    </button>
+  );
+};
+
+const settings = {
+  dots: true,
+  infinite: true,
+  speed: 500,
+  slidesToShow: 4,
+  slidesToScroll: 1,
+  prevArrow: <CustomPrevArrow />,
+  nextArrow: <CustomNextArrow />,
+  responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 3,
+        slidesToScroll: 1,
+      },
+    },
+    {
+      breakpoint: 768,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 1,
+      },
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+      },
+    },
+  ],
+};
 
 function ProductDetail() {
   const { products, selectedProduct } = useSelector((store) => store.products);
@@ -35,12 +126,12 @@ function ProductDetail() {
   return (
     <div>
       <Navbar />
-      <Container>
+      <Container className="my-5">
         {data && (
           <Row key={data.id}>
             <Col xl="6" lg="6" md="6" sm="12">
               <div className="product-content-image">
-                <img src={data.thumbnail} className="image" />
+                <img src={data.thumbnail} className="image " />
               </div>
             </Col>
             <Col xl="6" lg="6" md="6" sm="12">
@@ -50,14 +141,19 @@ function ProductDetail() {
                 <FaStar className="text-warning fs-4" />
                 <FaStar className="text-warning fs-4" />
                 <FaStar className="text-warning fs-4" />
-                <strong>+20 Yorum</strong>
+                <strong>+5 Yorum</strong>
               </div>
-              <div>{/* Ürün Markası gelcek */}</div>
-              <div>{/* Ürün başlıgı gelce */}</div>
-              <div>{/* Fiyatı gelcek */}</div>
-              <div>
-                <div>{/* Adet artırma azaltma gelcek */}</div>
-                <div>{/* ekleme butonu gelcek */}</div>
+              <div className="fs-2 display-3 fw-bold my-3 ">{data.brand}</div>
+              <div className="fs-4 fw-medium">{data.title}</div>
+              <div className="text-danger fs-5 my-2">{data.price}$</div>
+              <div className="d-flex column-gap-3 my-4">
+                <div className="increase-decrease-content">
+                  <IoMdAdd className="fs-3" />
+                </div>
+                <div className="fw-bold">312</div>
+                <div className="increase-decrease-content">
+                  <FiMinus className="fs-3" />
+                </div>
               </div>
               <div className="d-flex justify-content-center align-items-center column-gap-2">
                 <p>
@@ -69,9 +165,102 @@ function ProductDetail() {
                   Memnuniyet Garantisi
                 </p>
               </div>
+
+              <div className="my-1">
+                <SiAdguard className="text-success fs-2" />{" "}
+                <strong>7 Günde İade Garantisi</strong>
+              </div>
+              <div className="mt-3">
+                <strong>{data.warrantyInformation}</strong>
+              </div>
+
+              <div className="mt-4">
+                <Accordion defaultActiveKey="0">
+                  <Accordion.Item className="accordion-item" eventKey="1">
+                    <Accordion.Header>Özellikler</Accordion.Header>
+                    <Accordion.Body>
+                      <p className="fs-5">{data.description}</p>
+                    </Accordion.Body>
+                  </Accordion.Item>
+                  <Accordion.Item className="accordion-item" eventKey="0">
+                    <Accordion.Header>Boyutlar</Accordion.Header>
+                    <Accordion.Body>
+                      <p className="py-1">
+                        Ürünümüzün Boyutu {data.dimensions.depth}`dır
+                        <br />
+                        Yüksekligi {data.dimensions.height}`dir <br /> Ve
+                        Genişligi ise {data.dimensions.width}
+                      </p>
+                    </Accordion.Body>
+                  </Accordion.Item>
+                </Accordion>
+              </div>
             </Col>
           </Row>
         )}
+      </Container>
+      <Container className="mt-5">
+        <div
+          className="reviews-slider-container"
+          style={{
+            maxWidth: "1200px",
+            margin: "0 auto",
+            padding: "0 50px",
+            overflow: "hidden",
+          }}
+        >
+          <Slider {...settings} className="shadow-lg">
+            {data?.reviews?.map((review, index) => (
+              <div className="px-2" key={index}>
+                <Card
+                  style={{
+                    maxWidth: "260px",
+                    margin: "0 auto",
+                    height: "100%",
+                  }}
+                >
+                  <CardHeader className="bg-primary text-white">
+                    <div className="d-flex justify-content-between align-items-center">
+                      <h6 className="mb-0">{review.user_name}</h6>
+                      <span className="badge bg-light text-dark">
+                        {review.rating}/5 ⭐
+                      </span>
+                    </div>
+                  </CardHeader>
+                  <Card.Body className="p-3">
+                    <CardText
+                      className="text-black mb-2"
+                      style={{ fontSize: "0.9rem" }}
+                    >
+                      {review.review_content}
+                    </CardText>
+                    <CardText
+                      className="text-black mb-2 reviewer"
+                      style={{ fontSize: "0.9rem" }}
+                    >
+                      {review.reviewerName}
+                    </CardText>
+                    <CardText
+                      className="text-black mb-2 reviewer"
+                      style={{ fontSize: "0.9rem" }}
+                    >
+                      {review.reviewerEmail}
+                    </CardText>
+                    <CardText
+                      className="text-muted mb-2"
+                      style={{ fontSize: "0.9rem" }}
+                    >
+                      {review.comment}
+                    </CardText>
+                    <small className="text-muted">
+                      {new Date(review.date).toLocaleDateString()}
+                    </small>
+                  </Card.Body>
+                </Card>
+              </div>
+            ))}
+          </Slider>
+        </div>
       </Container>
     </div>
   );

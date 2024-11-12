@@ -9,7 +9,7 @@ import {
   CardText,
   CardHeader,
 } from "react-bootstrap";
-import { IoBagAdd } from "react-icons/io5";
+import { MdOutlineAddShoppingCart } from "react-icons/md";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getAllProducts } from "../../redux/slices/productSlice";
@@ -37,6 +37,7 @@ function ProductsLst() {
       </div>
     );
   }
+  console.log(products);
 
   return (
     <div>
@@ -56,12 +57,20 @@ function ProductsLst() {
                 <CardHeader className="card-header">
                   <CardImg className="card-img-overlay" src={item.thumbnail} />
                 </CardHeader>
-                <IoBagAdd
+                <MdOutlineAddShoppingCart
                   className="fs-4 addBtn"
                   onClick={() => navigate(`/product-detail/${item.id}`)}
                 />
                 <CardBody className="card-body">
-                  <CardText className="card-text-price">{item.title}</CardText>
+                  <CardText className="card-text-price py-2">
+                    <strong>{item.brand}</strong>
+                  </CardText>
+                  <CardText className="card-text-price py-2">
+                    {item.title}$
+                  </CardText>
+                  <CardText className="card-text-price py-2">
+                    {item.price}$
+                  </CardText>
                 </CardBody>
               </Card>
             </Col>
