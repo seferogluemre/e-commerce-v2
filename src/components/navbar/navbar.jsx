@@ -13,13 +13,11 @@ import { useState } from "react";
 // ];
 
 function navbar() {
-  const [length, setLength] = useState(1);
-
   return (
     <div>
       <Navbar expand="lg" className="shadow-lg mb-5">
         <Container>
-          <Navbar.Brand href="#home">
+          <Navbar.Brand href="/">
             <img
               src="/src/components/images/logo-removebg-preview.png"
               width={90}
@@ -30,7 +28,9 @@ function navbar() {
             id="basic-navbar-nav"
             className="justify-content-end"
           >
-            <Link className="nav-link px-2">Kategoriler</Link>
+            <Link className="nav-link px-2" to={"/category"}>
+              Kategoriler
+            </Link>
             {length ? (
               <IoCart className="fs-2" />
             ) : (

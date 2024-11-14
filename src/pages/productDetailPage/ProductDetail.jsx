@@ -154,25 +154,25 @@ function ProductDetail() {
                   <FiMinus className="fs-3" />
                 </div>
               </div>
-              <div className="d-flex justify-content-center align-items-center column-gap-2">
+              <div className="d-flex justify-content-center my-3 align-items-center column-gap-2">
                 <p>
-                  <CiFaceSmile />
+                  <CiFaceSmile className="fs-3" />
                   1.000.000+ Mutlu Müşteri
                 </p>
                 <p>
-                  <FcApproval />
+                  <FcApproval className="fs-3" />
                   Memnuniyet Garantisi
                 </p>
               </div>
               <div className="my-1">
-                <SiAdguard className="text-success fs-2" />{" "}
-                <strong>7 Günde İade Garantisi</strong>
+                <SiAdguard className="text-success fs-3 " />
+                <strong> 7 Günde İade Garantisi</strong>
               </div>
               <div className="mt-3">
                 <strong>
                   {data.warrantyInformation === "Lifetime warranty"
                     ? "Ömür boyu garanti"
-                    : "Garanti Yok"}
+                    : "Garantisi Yok"}
                 </strong>
               </div>
               <div className="mt-4">

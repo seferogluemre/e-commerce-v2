@@ -1,52 +1,58 @@
-import { useSelector } from "react-redux";
-import {
-  Container,
-  Row,
-  Col,
-  CardBody,
-  Button,
-  Card,
-  CardImg,
-  CardText,
-  CardHeader,
-} from "react-bootstrap";
-import { FaHeartCircleCheck } from "react-icons/fa6";
+import Navbar from "../../components/navbar/navbar";
+import Footer from "../../components/footer/Footer";
+import { useParams } from "react-router-dom";
+import { useState } from "react";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { getAllProducts } from "../../redux/slices/productSlice";
-import "./Products.scss";
+import axios from "axios";
+import {
+  Col,
+  Row,
+  Container,
+  Card,
+  CardBody,
+  CardHeader,
+  CardText,
+  CardImg,
+} from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-
+import { FaHeartCircleCheck } from "react-icons/fa6";
 import { MdShoppingCartCheckout } from "react-icons/md";
-function ProductsLst() {
-  const { products, loading } = useSelector((store) => store.products);
 
-  const dispatch = useDispatch();
+function Product() {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+  const { category } = useParams();
+
   useEffect(() => {
-    dispatch(getAllProducts());
-  }, [dispatch]);
+    const getAllProducts = async (categoryParams) => {
+      setLoading(true);
+      try {
+        const response = await axios.get(
+          `https://dummyjson.com/products/category/${categoryParams}`
+        );
+        const data = response.data.products;
+        setProducts(data);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    getAllProducts(category);
+  }, [category]);
 
   if (loading) {
-    return (
-      <div className="loader-container">
-        <div className="bouncing-dots">
-          <div className="dot"></div>
-          <div className="dot"></div>
-          <div className="dot"></div>
-        </div>
-      </div>
-    );
+    return <p>ahsahshahs</p>;
   }
-  console.log(products);
 
   return (
-    <div className="">
-      <div className="text-center d-flex justify-content-center"></div>
+    <>
+      <Navbar />
       <Container>
         <Row>
-          {products?.map((item) => (
+          {products.map((item) => (
             <Col
               lg="4"
               md="6"
@@ -86,8 +92,9 @@ function ProductsLst() {
           ))}
         </Row>
       </Container>
-    </div>
+      <Footer />
+    </>
   );
 }
 
-export default ProductsLst;
+export default Product;

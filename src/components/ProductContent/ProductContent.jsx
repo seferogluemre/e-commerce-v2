@@ -2,7 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import "./ProductContent.scss";
-// import { FaArrowRight } from "react-icons/fa6";
+import Footer from "../footer/Footer";
+import { Link } from "react-router-dom";
 
 function ProductContent() {
   const [products, setProducts] = useState({
@@ -60,39 +61,54 @@ function ProductContent() {
   ];
 
   return (
-    <div className="container-fluid main-container">
-      <div className="text-center">
-        <h2>Kategorilerimiz</h2>
-      </div>
+    <>
+      <div className="container-fluid main-container">
+        <div className="text-center">
+          <h2 className="text-danger pb-4">Kategorilerimiz</h2>
+        </div>
 
-      {categories.map((category) => (
-        <Container key={category.title} className="product-container">
-          <div className="text-center">
-            <h3>{category.title}</h3>
-          </div>
-          <Row>
-            {category.products.map((product) => (
-              <Col xl="2" sm="6" lg="3" md="6" key={product.id}>
-                <img
-                  src={product.thumbnail}
-                  className="product-image"
-                  alt={product.title}
-                />
-              </Col>
-            ))}
-            {category.products.map((product) => (
-              <Col xl="2" sm="6" lg="3" md="6" key={product.id}>
-                <img
-                  src={product.thumbnail}
-                  className="product-image"
-                  alt={product.title}
-                />
-              </Col>
-            ))}
-          </Row>
-        </Container>
-      ))}
-    </div>
+        {categories.map((category) => (
+          <Container key={category.title} className="product-container">
+            <div className="text-center">
+              <h3>{category.title}</h3>
+            </div>
+            <Row>
+              {category.products.map((product) => (
+                <Col xl="2" sm="6" lg="3" md="6" key={product.id}>
+                  <img
+                    src={product.thumbnail}
+                    className="product-image"
+                    alt={product.title}
+                  />
+                </Col>
+              ))}
+              {category.products.map((product) => (
+                <Col xl="2" sm="6" lg="3" md="6" key={product.id}>
+                  <img
+                    src={product.thumbnail}
+                    className="product-image"
+                    alt={product.title}
+                  />
+                </Col>
+              ))}
+              <Link
+                className="next-btn btn-danger"
+                to={`/category/${category.title
+                  .replace("Laptoplar", "laptops")
+                  .replace("Mobilya", "furniture")
+                  .replace("Erkek Gömlekleri", "mens-shirts")
+                  .replace("Erkek Saatleri", "mens-watches")
+                  .replace("Kadın Takıları", "womens-jewellery")
+                  .replace("Motorsiklerler", "motorcycle")}`}
+              >
+                Devamı.....
+              </Link>
+            </Row>
+          </Container>
+        ))}
+      </div>
+      <Footer />
+    </>
   );
 }
 

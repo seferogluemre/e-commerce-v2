@@ -5,9 +5,14 @@ body {
   font-weight: 700 !important;
   font-size: 20px !important;
 }
-.card {
-  max-width: "250px"; // Kart genişliğini biraz azalttım
-  margin: "0 auto";
-  height: "90%";
-  border-radius: 25px;
+.reviews-slider-container {
+  .card {
+    max-width: 250px; // Kart genişliğini biraz azalttım
+    margin: 0 20px;
+    height: 50% !important;
+    border-radius: 25px;
+    .card-header {
+      margin: 0px;
+    }
+  }
 }

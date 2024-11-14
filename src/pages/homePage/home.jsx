@@ -1,8 +1,7 @@
-import React from "react";
 import "./home.scss";
 import Navbar from "../../components/navbar/navbar";
 import ProductsLst from "../../components/Products/ProductsLst";
-// import ProductContent from "../../components/ProductContent/ProductContent";
+import Footer from "/src/components/footer/Footer";
 import ReviewsSlider from "../../components/reviewsSlider/ReviewsSlider";
 
 function home() {
@@ -11,6 +10,7 @@ function home() {
       <Navbar />
       <ProductsLst />
       <ReviewsSlider />
+      <Footer />
     </div>
   );
 }

@@ -11,10 +11,24 @@ body {
     font-size: 20px !important;
     margin: 20px auto;
     .row {
+      position: relative;
       box-shadow: 0 5px 12px rgb(161, 161, 161);
       border: 2px solid rgb(220, 18, 113);
       padding: 20px;
       border-radius: 12px;
+      .next-btn {
+        width: 180px;
+        height: 40px;
+        background-color: #99012e;
+        position: absolute;
+        color: aliceblue !important;
+        text-decoration: none;
+        text-align: center;
+        border-radius: 10px;
+        right: 8px;
+        box-shadow: 0 2px 10px #64001e;
+        bottom: 10px;
+      }
       .col-lg-3 {
         width: 12%;
         display: flex;
