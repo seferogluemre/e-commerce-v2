@@ -4,12 +4,13 @@ import {
   Row,
   Col,
   CardBody,
+  Button,
   Card,
   CardImg,
   CardText,
   CardHeader,
 } from "react-bootstrap";
-import { MdOutlineAddShoppingCart } from "react-icons/md";
+import { FaHeartCircleCheck } from "react-icons/fa6";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { getAllProducts } from "../../redux/slices/productSlice";
@@ -40,7 +41,7 @@ function ProductsLst() {
   console.log(products);
 
   return (
-    <div>
+    <div className="">
       <div className="text-center d-flex justify-content-center"></div>
       <Container>
         <Row>
@@ -48,7 +49,8 @@ function ProductsLst() {
             <Col
               lg="4"
               md="6"
-              xl="3"
+              xxl="3"
+              xl="4"
               sm="6"
               className="d-flex flex-column align-items-center justify-content-center"
               key={item.id}
@@ -57,20 +59,25 @@ function ProductsLst() {
                 <CardHeader className="card-header">
                   <CardImg className="card-img-overlay" src={item.thumbnail} />
                 </CardHeader>
-                <MdOutlineAddShoppingCart
-                  className="fs-4 addBtn"
-                  onClick={() => navigate(`/product-detail/${item.id}`)}
-                />
+
                 <CardBody className="card-body">
+                  <FaHeartCircleCheck className="fs-3 favorite-icon" />
                   <CardText className="card-text-price py-2">
                     <strong>{item.brand}</strong>
                   </CardText>
                   <CardText className="card-text-price py-2">
-                    {item.title}$
+                    {item.title}
                   </CardText>
                   <CardText className="card-text-price py-2">
-                    {item.price}$
+                    {item.price}
                   </CardText>
+                  <a
+                    className="btn btn-danger"
+                    id="addBtn"
+                    onClick={() => navigate(`/product-detail/${item.id}`)}
+                  >
+                    Ekle
+                  </a>
                 </CardBody>
               </Card>
             </Col>

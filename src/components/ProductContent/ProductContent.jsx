@@ -18,14 +18,23 @@ function ProductContent() {
     const getAllFetchProducts = async () => {
       try {
         const responses = await Promise.all([
-          axios.get("https://dummyjson.com/products/category/laptops"),
-          axios.get("https://dummyjson.com/products/category/furniture"),
-          axios.get("https://dummyjson.com/products/category/mens-shirts"),
-          axios.get("https://dummyjson.com/products/category/mens-watches"),
-          axios.get("https://dummyjson.com/products/category/womens-jewellery"),
-          axios.get("https://dummyjson.com/products/category/motorcycle"),
+          axios.get("https://dummyjson.com/products/category/laptops?limit=20"),
+          axios.get(
+            "https://dummyjson.com/products/category/furniture?limit=20"
+          ),
+          axios.get(
+            "https://dummyjson.com/products/category/mens-shirts?limit=20"
+          ),
+          axios.get(
+            "https://dummyjson.com/products/category/mens-watches?limit=20"
+          ),
+          axios.get(
+            "https://dummyjson.com/products/category/womens-jewellery?limit=20"
+          ),
+          axios.get(
+            "https://dummyjson.com/products/category/motorcycle?limit=20"
+          ),
         ]);
-
         setProducts({
           laptops: responses[0].data.products,
           furniture: responses[1].data.products,
@@ -62,6 +71,15 @@ function ProductContent() {
             <h3>{category.title}</h3>
           </div>
           <Row>
+            {category.products.map((product) => (
+              <Col xl="2" sm="6" lg="3" md="6" key={product.id}>
+                <img
+                  src={product.thumbnail}
+                  className="product-image"
+                  alt={product.title}
+                />
+              </Col>
+            ))}
             {category.products.map((product) => (
               <Col xl="2" sm="6" lg="3" md="6" key={product.id}>
                 <img

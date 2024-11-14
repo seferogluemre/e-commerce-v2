@@ -1,6 +1,6 @@
 .card {
-  width: 280px;
-  height: 450px;
+  width: 320px;
+  height: 500px;
   padding: 10px;
   border: none !important;
   box-shadow: 0 0 13px #3b3b3b;
@@ -14,12 +14,18 @@
   &:hover {
     box-shadow: 0 0 19px #000000;
   }
-  .addBtn {
+  #addBtn {
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+    transition: 0.2s ease-in-out;
+    width: 110px;
+  }
+  .favorite-icon {
     position: absolute;
     right: 10px;
-    bottom: 10px;
-    animation: btnEffect 2s alternate infinite;
-    transition: 0.2s ease-in-out;
+    top: 10px;
+    color: #fa4032;
   }
 
   .card-header {
@@ -58,11 +64,11 @@
   width: 300px;
 }
 
-@media (max-width: 456px) {
+@media (max-width: 578px) {
   .card {
     border: 0px !important;
     width: auto !important;
-    height: 400px;
+    height: 480px;
     .card-body {
       padding: 65% 20px;
     }
@@ -70,23 +76,6 @@
   .col-sm-6 {
     width: 49%;
     flex: 49%;
-  }
-}
-@keyframes btnEffect {
-  0% {
-    transform: scale(1.06);
-  }
-  25% {
-    transform: scale(1.2); /* Büyüme */
-  }
-  50% {
-    transform: scale(1.08); /* Orta boyut */
-  }
-  75% {
-    transform: scale(1.02); /* Küçülme */
-  }
-  100% {
-    transform: scale(1.06); /* Başlangıç boyutuna dönüş */
   }
 }
 

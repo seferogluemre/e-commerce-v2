@@ -1,0 +1,24 @@
+function ProductContent() {
+  // ... existing code ...
+
+  useEffect(() => {
+    const getAllFetchProducts = async () => {
+      try {
+        const responses = await Promise.all([
+          axios.get("https://dummyjson.com/products/category/laptops?limit=10"),
+          axios.get("https://dummyjson.com/products/category/furniture?limit=10"),
+          axios.get("https://dummyjson.com/products/category/mens-shirts?limit=10"),
+          axios.get("https://dummyjson.com/products/category/mens-watches?limit=10"),
+          axios.get("https://dummyjson.com/products/category/womens-jewellery?limit=10"),
+          axios.get("https://dummyjson.com/products/category/motorcycle?limit=10"),
+        ]);
+        // ... existing code ...
+      } catch (error) {
+        console.log("Hata:", error);
+      }
+    };
+    // ... existing code ...
+  }, []);
+
+  // ... existing code ...
+} 

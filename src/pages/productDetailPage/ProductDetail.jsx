@@ -5,16 +5,15 @@ import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { setSelectedProduct } from "../../redux/slices/productSlice";
 import { useDispatch } from "react-redux";
-import { Container, Row, Col, Accordion, AccordionItem } from "react-bootstrap";
+import { Container, Row, Col, Accordion } from "react-bootstrap";
 import { FaStar } from "react-icons/fa";
 import { FcApproval } from "react-icons/fc";
 import { CiFaceSmile } from "react-icons/ci";
-// import { BiSmile } from "react-icons/bi";
+
 import "./ProductDetail.scss";
 import { IoMdAdd } from "react-icons/io";
 import { FiMinus } from "react-icons/fi";
 import { SiAdguard } from "react-icons/si";
-import ReviewsSlider from "/src/components/reviewsSlider/ReviewsSlider";
 
 import Slider from "react-slick";
 import { Card, CardText, CardHeader } from "react-bootstrap";
@@ -165,15 +164,17 @@ function ProductDetail() {
                   Memnuniyet Garantisi
                 </p>
               </div>
-
               <div className="my-1">
                 <SiAdguard className="text-success fs-2" />{" "}
                 <strong>7 Günde İade Garantisi</strong>
               </div>
               <div className="mt-3">
-                <strong>{data.warrantyInformation}</strong>
+                <strong>
+                  {data.warrantyInformation === "Lifetime warranty"
+                    ? "Ömür boyu garanti"
+                    : "Garanti Yok"}
+                </strong>
               </div>
-
               <div className="mt-4">
                 <Accordion defaultActiveKey="0">
                   <Accordion.Item className="accordion-item" eventKey="1">
@@ -182,7 +183,7 @@ function ProductDetail() {
                       <p className="fs-5">{data.description}</p>
                     </Accordion.Body>
                   </Accordion.Item>
-                  <Accordion.Item className="accordion-item" eventKey="0">
+                  <Accordion.Item className="accordion-item" eventKey="">
                     <Accordion.Header>Boyutlar</Accordion.Header>
                     <Accordion.Body>
                       <p className="py-1">
@@ -199,7 +200,7 @@ function ProductDetail() {
           </Row>
         )}
       </Container>
-      <Container className="mt-5">
+      <Container className="mt-5 detail-container">
         <div
           className="reviews-slider-container"
           style={{
@@ -209,22 +210,16 @@ function ProductDetail() {
             overflow: "hidden",
           }}
         >
-          <Slider {...settings} className="shadow-lg">
+          <Slider {...settings} className="">
             {data?.reviews?.map((review, index) => (
-              <div className="px-2" key={index}>
-                <Card
-                  style={{
-                    maxWidth: "260px",
-                    margin: "0 auto",
-                    height: "100%",
-                  }}
-                >
-                  <CardHeader className="bg-primary text-white">
-                    <div className="d-flex justify-content-between align-items-center">
-                      <h6 className="mb-0">{review.user_name}</h6>
+              <div className="p-4" key={index}>
+                <Card className="card">
+                  <CardHeader className="bg-warning text-white">
+                    <div className="d-flex justify-content-between align-items-center w-100">
                       <span className="badge bg-light text-dark">
                         {review.rating}/5 ⭐
                       </span>
+                      <h6 className="mb-0">{review.user_name}</h6>
                     </div>
                   </CardHeader>
                   <Card.Body className="p-3">

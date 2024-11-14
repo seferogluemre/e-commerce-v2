@@ -46,3 +46,17 @@ body {
     }
   }
 }
+
+.detail-container {
+  .card {
+    padding: 0px !important;
+    width: 240px !important;
+    height: 84% !important;
+    border-radius: 25px;
+
+    .card-header {
+      border-top-left-radius: 25px;
+      border-top-right-radius: 25px;
+    }
+  }
+}

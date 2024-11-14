@@ -2,6 +2,7 @@ import React from "react";
 import Slider from "react-slick";
 import { Card, CardText, CardHeader } from "react-bootstrap";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa"; // Font Awesome ikonları için
+import "./ReviewsSlider.scss";
 
 const reviews = [
   {
@@ -175,15 +176,9 @@ export default function SimpleSlider() {
     >
       <Slider {...settings}>
         {reviews.map((review, index) => (
-          <div className="px-2" key={index}>
-            <Card
-              style={{
-                maxWidth: "260px", // Kart genişliğini biraz azalttım
-                margin: "0 auto",
-                height: "100%",
-              }}
-            >
-              <CardHeader className="bg-primary text-white">
+          <div className="px-2 py-3" key={index}>
+            <Card className="card">
+              <CardHeader className="bg-warning text-white rounded-4">
                 <div className="d-flex justify-content-between align-items-center">
                   <h6 className="mb-0">{review.user_name}</h6>
                   <span className="badge bg-light text-dark">

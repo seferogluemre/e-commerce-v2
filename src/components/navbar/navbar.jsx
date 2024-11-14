@@ -1,6 +1,9 @@
 import "./navbar.scss";
-import { Navbar, Container, Nav } from "react-bootstrap";
+import { Navbar, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { IoCartOutline } from "react-icons/io5";
+import { IoCart } from "react-icons/io5";
+import { useState } from "react";
 
 // const categories = [
 //   { id: 1, name: "Laptop", slug: "laptop" },
@@ -10,14 +13,29 @@ import { Link } from "react-router-dom";
 // ];
 
 function navbar() {
+  const [length, setLength] = useState(1);
+
   return (
     <div>
-      <Navbar expand="lg" className="bg-dark mb-5">
+      <Navbar expand="lg" className="shadow-lg mb-5">
         <Container>
-          <Navbar.Brand href="#home">E-Commerce</Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto">deneme</Nav>
+          <Navbar.Brand href="#home">
+            <img
+              src="/src/components/images/logo-removebg-preview.png"
+              width={90}
+              height={95}
+            />
+          </Navbar.Brand>
+          <Navbar.Collapse
+            id="basic-navbar-nav"
+            className="justify-content-end"
+          >
+            <Link className="nav-link px-2">Kategoriler</Link>
+            {length ? (
+              <IoCart className="fs-2" />
+            ) : (
+              <IoCartOutline className="fs-2" />
+            )}
           </Navbar.Collapse>
         </Container>
       </Navbar>
