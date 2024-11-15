@@ -46,12 +46,24 @@ function Footer() {
                 </div>
                 <h4 className="pb-4">Ürün Kategorileri</h4>
                 <div className="text-center row-gap-2 d-flex flex-column">
-                  <Link className="nav-link">Laptop</Link>
-                  <Link className="nav-link">Kadın Giyim</Link>
-                  <Link className="nav-link">Erkek Gömlek</Link>
-                  <Link className="nav-link">Erkek Saatleri</Link>
-                  <Link className="nav-link">Kadın Takıları</Link>
-                  <Link className="nav-link">Motorsiklet</Link>
+                  <Link className="nav-link" to={"/category/laptops"}>
+                    Laptop
+                  </Link>
+                  <Link className="nav-link" to={"/category/womens-shoes"}>
+                    Kadın Giyim
+                  </Link>
+                  <Link className="nav-link" to={"/category/mens-shirts"}>
+                    Erkek Gömlek
+                  </Link>
+                  <Link className="nav-link" to={"/category/mens-watches"}>
+                    Erkek Saatleri
+                  </Link>
+                  <Link className="nav-link" to={"/category/womens-jewellery"}>
+                    Kadın Takıları
+                  </Link>
+                  <Link className="nav-link" to={"/category/motorcycle"}>
+                    Motorsiklet
+                  </Link>
                 </div>
               </div>
             </div>
@@ -68,7 +80,7 @@ function Footer() {
                 <div className="d-flex flex-column align-items-center row-gap-2 justify-content-center">
                   <Link className="nav-link">İletişim</Link>
                   <Link className="nav-link">Hakkımızda</Link>
-                  <Link className="nav-link">Hakkımızda</Link>
+                  <Link className="nav-link">Giriş Yap</Link>
                   <Link className="nav-link">Sıkça Sorulan Sorular</Link>
                 </div>
               </div>
@@ -83,11 +95,21 @@ function Footer() {
                 </div>
                 <h4 className="pb-4">Popüler Ürünler</h4>
                 <div className="d-flex flex-column align-items-center row-gap-2 justify-content-center">
-                  <Link className="nav-link">Lenovo Yoga 920</Link>
-                  <Link className="nav-link">Dell XPS I3 9300</Link>
-                  <Link className="nav-link">Nike Air Jordan</Link>
-                  <Link className="nav-link">Rolex Cellini Date black</Link>
-                  <Link className="nav-link">Apple Airpods</Link>
+                  <Link className="nav-link" to={"/product-detail/81"}>
+                    Lenovo Yoga 920
+                  </Link>
+                  <Link className="nav-link" to={"/product-detail/82"}>
+                    Dell XPS I3 9300
+                  </Link>
+                  <Link className="nav-link" to={"/product-detail/88"}>
+                    Nike Air Jordan
+                  </Link>
+                  <Link className="nav-link" to={"/product-detail/95"}>
+                    Rolex Cellini Date black
+                  </Link>
+                  <Link className="nav-link" to={"/product-detail/100"}>
+                    Apple Airpods
+                  </Link>
                 </div>
               </div>
             </div>
