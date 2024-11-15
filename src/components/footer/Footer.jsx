@@ -47,7 +47,7 @@ function Footer() {
                 <h4 className="pb-4">Ürün Kategorileri</h4>
                 <div className="text-center row-gap-2 d-flex flex-column">
                   <Link className="nav-link">Laptop</Link>
-                  <Link className="nav-link">Mobilya</Link>
+                  <Link className="nav-link">Kadın Giyim</Link>
                   <Link className="nav-link">Erkek Gömlek</Link>
                   <Link className="nav-link">Erkek Saatleri</Link>
                   <Link className="nav-link">Kadın Takıları</Link>

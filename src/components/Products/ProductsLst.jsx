@@ -46,8 +46,9 @@ function ProductsLst() {
   };
 
   return (
-    <div className="">
-      <Container>
+    <div>
+      <Container style={{ marginTop: "90px" }}>
+        <div className="text-center pb-5 fs-3">Öne Çıkanlar</div>
         <Row>
           {products?.slice(0, visibleCount).map((item) => (
             <Col

@@ -16,3 +16,9 @@ body {
     }
   }
 }
+
+@media (max-width: 768px) {
+  .slick-dots {
+    display: none !important;
+  }
+}

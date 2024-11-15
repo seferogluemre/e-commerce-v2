@@ -67,10 +67,15 @@
 @media (max-width: 578px) {
   .card {
     border: 0px !important;
-    width: auto !important;
-    height: 490px;
+    width: 180px !important;
+    height: 400px !important;
     .card-body {
       padding: 65% 20px;
+    }
+    .card-header {
+      .card-img-overlay {
+        width: 100% !important;
+      }
     }
   }
   .col-sm-6 {

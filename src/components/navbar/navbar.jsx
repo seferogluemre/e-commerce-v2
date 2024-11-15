@@ -15,7 +15,7 @@ import { useState } from "react";
 function navbar() {
   return (
     <div>
-      <Navbar expand="lg" className="shadow-lg mb-5">
+      <Navbar expand="lg" className="shadow-lg ">
         <Container>
           <Navbar.Brand href="/">
             <img
