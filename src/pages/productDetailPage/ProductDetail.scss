@@ -59,3 +59,179 @@ body {
     }
   }
 }
+// Variables
+$primary-color: #ffd700;
+$secondary-color: #f9f9f9;
+$text-color: #333;
+$muted-color: #666;
+$border-radius: 8px;
+$transition-speed: 0.3s;
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin card-style {
+  background-color: $secondary-color;
+  border-radius: $border-radius;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+// Styles
+.product-reviews {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+
+  .overall-rating {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-bottom: 40px;
+
+    @media (min-width: 768px) {
+      flex-direction: row;
+      align-items: flex-start;
+    }
+  }
+
+  .rating-summary {
+    text-align: center;
+    flex: 1;
+
+    @media (min-width: 768px) {
+      text-align: left;
+    }
+
+    .average-rating {
+      font-size: 64px;
+      font-weight: bold;
+      margin: 0;
+      color: $text-color;
+    }
+
+    .star-rating {
+      @include flex-center;
+      margin: 15px 0;
+
+      @media (min-width: 768px) {
+        justify-content: flex-start;
+      }
+    }
+
+    .total-reviews {
+      font-size: 16px;
+      color: $muted-color;
+    }
+  }
+
+  .rating-distribution {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    .rating-bar {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+
+      .star-count {
+        width: 60px;
+        @include flex-center;
+        font-size: 18px;
+      }
+
+      .progress-bar {
+        flex-grow: 1;
+        height: 12px;
+        background-color: #eee;
+        border-radius: 6px;
+        overflow: hidden;
+
+        .progress {
+          height: 100%;
+          background-color: $primary-color;
+          transition: width $transition-speed ease-in-out;
+        }
+      }
+
+      .review-count {
+        width: 50px;
+        text-align: right;
+        font-size: 16px;
+        color: $muted-color;
+      }
+    }
+  }
+
+  .review-list {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+
+    .review-card {
+      @include card-style;
+      transition: transform $transition-speed ease-in-out;
+
+      &:hover {
+        transform: translateY(-2px);
+      }
+
+      .review-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 15px;
+
+        .star-rating {
+          @include flex-center;
+          margin-bottom: 10px;
+        }
+
+        .verified-buyer {
+          display: inline-block;
+          background-color: #e8f5e9;
+          color: #2e7d32;
+          font-size: 14px;
+          padding: 4px 8px;
+          border-radius: 4px;
+          margin-top: 10px;
+        }
+
+        .reviewer-name {
+          font-weight: bold;
+          margin: 10px 0;
+          color: $text-color;
+          font-size: 18px;
+        }
+
+        .review-date {
+          font-size: 16px;
+          color: $muted-color;
+        }
+      }
+
+      .review-content {
+        font-size: 16px;
+        line-height: 1.6;
+        color: $text-color;
+      }
+    }
+  }
+}
+
+.star-icon {
+  width: 36px;
+  height: 36px;
+
+  &.large {
+    width: 48px;
+    height: 48px;
+  }
+}

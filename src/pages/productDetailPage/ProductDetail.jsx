@@ -1,24 +1,37 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Navbar from "../../components/navbar/navbar";
 import { useSelector } from "react-redux";
-import { useEffect } from "react";
+
 import { setSelectedProduct } from "../../redux/slices/productSlice";
 import { useDispatch } from "react-redux";
 import { Container, Row, Col, Accordion } from "react-bootstrap";
 import { FaStar } from "react-icons/fa";
 import { FcApproval } from "react-icons/fc";
 import { CiFaceSmile } from "react-icons/ci";
-
 import "./ProductDetail.scss";
+import Footer from "/src/components/footer/Footer";
 import { IoMdAdd } from "react-icons/io";
 import { FiMinus } from "react-icons/fi";
 import { SiAdguard } from "react-icons/si";
 
-import Slider from "react-slick";
-import { Card, CardText, CardHeader } from "react-bootstrap";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-
+const Star = ({ filled }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill={filled ? "#FFD700" : "none"}
+    stroke={filled ? "#FFD700" : "#ccc"}
+    className="star-icon"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"
+    />
+  </svg>
+);
 const CustomPrevArrow = (props) => {
   const { onClick } = props;
   return (
@@ -43,6 +56,200 @@ const CustomPrevArrow = (props) => {
     </button>
   );
 };
+const reviews = [
+  {
+    date: new Date(2024, 3, 10),
+    user_name: "Emre K.",
+    rewiews_content: "Ürünüm harika, çok memnun kaldım.",
+    rate: 5,
+  },
+  {
+    date: new Date(2024, 6, 22),
+    user_name: "Ahmet K.",
+    rewiews_content: "Hızlı kargo, teşekkürler!",
+    rate: 5,
+  },
+  {
+    date: new Date(2024, 2, 17),
+    user_name: "Murat K.",
+    rewiews_content: "Kalitesi beklediğimden çok daha iyi.",
+    rate: 5,
+  },
+  {
+    date: new Date(2024, 3, 12),
+    user_name: "Salih K.",
+    rewiews_content: "Mükemmel bir deneyim yaşadım.",
+    rate: 5,
+  },
+  {
+    date: new Date(2024, 12, 14),
+    user_name: "Berat K.",
+    rewiews_content: "Ürün tam istediğim gibi, teşekkürler.",
+    rate: 4,
+  },
+  {
+    date: new Date(2024, 8, 12),
+    user_name: "Burak K.",
+    rewiews_content: "Fiyat/performans oranı çok iyi.",
+    rate: 4,
+  },
+  {
+    date: new Date(2024, 3, 16),
+    user_name: "Ali K.",
+    rewiews_content: "Biraz daha hızlı gelebilirdi.",
+    rate: 3,
+  },
+  {
+    date: new Date(2024, 9, 21),
+    user_name: "Muhammet K.",
+    rewiews_content: "Ürün güzel ama eksik parçalar vardı.",
+    rate: 3,
+  },
+  {
+    date: new Date(2024, 8, 28),
+    user_name: "Ersin K.",
+    rewiews_content: "Kullanımı kolay, ama biraz ağır.",
+    rate: 2,
+  },
+  {
+    date: new Date(2024, 8, 28),
+    user_name: "Oğuz K.",
+    rewiews_content: "Beklediğimden daha kötü bir deneyim.",
+    rate: 2,
+  },
+  {
+    date: new Date(2024, 8, 28),
+    user_name: "Can K.",
+    rewiews_content: "Ürün tam olarak açıklamalara uymuyor.",
+    rate: 1,
+  },
+  {
+    date: new Date(2024, 8, 28),
+    user_name: "Özhan K.",
+    rewiews_content: "Kesinlikle tavsiye etmiyorum.",
+    rate: 1,
+  },
+  {
+    date: new Date(2024, 5, 10),
+    user_name: "Suat K.",
+    rewiews_content: "Harika bir ürün, çok beğendim.",
+    rate: 5,
+  },
+  {
+    date: new Date(2024, 7, 15),
+    user_name: "Ali T.",
+    rewiews_content: "Hızlı kargo, ürün tam istediğim gibi.",
+    rate: 5,
+  },
+  {
+    date: new Date(2024, 4, 20),
+    user_name: "İlker K.",
+    rewiews_content: "Kalitesi çok iyi, tekrar alırım.",
+    rate: 5,
+  },
+  {
+    date: new Date(2024, 11, 5),
+    user_name: "Can Y.",
+    rewiews_content: "Fiyatı uygun, memnun kaldım.",
+    rate: 4,
+  },
+  {
+    date: new Date(2024, 10, 30),
+    user_name: "Dogan K.",
+    rewiews_content: "Ürün güzel ama biraz geç geldi.",
+    rate: 3,
+  },
+  {
+    date: new Date(2024, 9, 25),
+    user_name: "Oğuz D.",
+    rewiews_content: "Kullanımı kolay ama eksik parçalar var.",
+    rate: 2,
+  },
+  {
+    date: new Date(2024, 8, 15),
+    user_name: "Remzi K.",
+    rewiews_content: "Ürün beklediğim gibi değil.",
+    rate: 1,
+  },
+  {
+    date: new Date(2024, 7, 20),
+    user_name: "Emre K.",
+    rewiews_content: "Kesinlikle tavsiye etmiyorum.",
+    rate: 1,
+  },
+  {
+    date: new Date(2024, 6, 18),
+    user_name: "Fatih K.",
+    rewiews_content: "Mükemmel bir ürün, çok memnun kaldım.",
+    rate: 5,
+  },
+  {
+    date: new Date(2024, 5, 12),
+    user_name: "Hüseyin K.",
+    rewiews_content: "Hızlı kargo, teşekkürler!",
+    rate: 5,
+  },
+  {
+    date: new Date(2024, 4, 22),
+    user_name: "Cem K.",
+    rewiews_content: "Kalitesi beklediğimden çok daha iyi.",
+    rate: 5,
+  },
+  {
+    date: new Date(2024, 3, 30),
+    user_name: "Vahit K.",
+    rewiews_content: "Mükemmel bir deneyim yaşadım.",
+    rate: 5,
+  },
+  {
+    date: new Date(2024, 2, 28),
+    user_name: "Gökhan K.",
+    rewiews_content: "Ürün tam istediğim gibi, teşekkürler.",
+    rate: 4,
+  },
+  {
+    date: new Date(2024, 1, 15),
+    user_name: "Hüseyin K.",
+    rewiews_content: "Fiyat/performans oranı çok iyi.",
+    rate: 4,
+  },
+  {
+    date: new Date(2024, 0, 10),
+    user_name: "İsmail K.",
+    rewiews_content: "Biraz daha hızlı gelebilirdi.",
+    rate: 3,
+  },
+  {
+    date: new Date(2024, 11, 5),
+    user_name: "Mehmet K.",
+    rewiews_content: "Ürün güzel ama eksik parçalar vardı.",
+    rate: 3,
+  },
+  {
+    date: new Date(2024, 10, 20),
+    user_name: "Kaan K.",
+    rewiews_content: "Kullanımı kolay, ama biraz ağır.",
+    rate: 2,
+  },
+  {
+    date: new Date(2024, 9, 15),
+    user_name: "Ahmet K.",
+    rewiews_content: "Beklediğimden daha kötü bir deneyim.",
+    rate: 2,
+  },
+  {
+    date: new Date(2024, 8, 10),
+    user_name: "Murat K.",
+    rewiews_content: "Ürün tam olarak açıklamalara uymuyor.",
+    rate: 1,
+  },
+  {
+    date: new Date(2024, 7, 5),
+    user_name: "Doruk K.",
+    rewiews_content: "Kesinlikle tavsiye etmiyorum.",
+    rate: 1,
+  },
+];
 
 const CustomNextArrow = (props) => {
   const { onClick } = props;
@@ -105,9 +312,36 @@ const settings = {
 function ProductDetail() {
   const { products, selectedProduct } = useSelector((store) => store.products);
   const dispatch = useDispatch();
+  const [averageRating, setAverageRating] = useState(0);
+  const [ratingDistribution, setRatingDistribution] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const reviewsPerPage = 8;
   const { id } = useParams();
   const data = selectedProduct;
   console.log(data);
+
+  useEffect(() => {
+    const totalReviews = reviews.length;
+    const avgRating =
+      reviews.reduce((sum, review) => sum + review.rate, 0) / totalReviews;
+    setAverageRating(avgRating);
+
+    const distribution = [5, 4, 3, 2, 1].map((stars) => {
+      const count = reviews.filter((review) => review.rate === stars).length;
+      return {
+        stars,
+        count,
+        percentage: (count / totalReviews) * 100,
+      };
+    });
+    setRatingDistribution(distribution);
+  }, []);
+
+  const indexOfLastReview = currentPage * reviewsPerPage;
+  const indexOfFirstReview = indexOfLastReview - reviewsPerPage;
+  const currentReviews = reviews.slice(indexOfFirstReview, indexOfLastReview);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const getProductById = () => {
     const product = products.find((data) => data.id == id);
@@ -199,64 +433,83 @@ function ProductDetail() {
         )}
       </Container>
       <Container className="mt-5 detail-container">
-        <div
-          className="reviews-slider-container"
-          style={{
-            maxWidth: "1200px",
-            margin: "0 auto",
-            padding: "0 50px",
-            overflow: "hidden",
-          }}
-        >
-          <Slider {...settings} className="">
-            {data?.reviews?.map((review, index) => (
-              <div className="p-4" key={index}>
-                <Card className="card">
-                  <CardHeader className="bg-warning text-white">
-                    <div className="d-flex justify-content-between align-items-center w-100">
-                      <span className="badge bg-light text-dark">
-                        {review.rating}/5 ⭐
-                      </span>
-                      <h6 className="mb-0">{review.user_name}</h6>
+        <div className="product-reviews">
+          <div className="overall-rating">
+            <div className="rating-summary">
+              <h2 className="average-rating">{averageRating.toFixed(1)}</h2>
+              <div className="star-rating">
+                {[1, 2, 3, 4, 5].map((star) => (
+                  <Star
+                    key={star}
+                    filled={star <= Math.round(averageRating)}
+                    large={true}
+                  />
+                ))}
+              </div>
+              <p className="total-reviews">{reviews.length} YORUMA GÖRE</p>
+            </div>
+            <div className="rating-distribution">
+              {ratingDistribution.map((rating) => (
+                <div key={rating.stars} className="rating-bar">
+                  <span className="star-count">
+                    {rating.stars} <Star filled={true} />
+                  </span>
+                  <div className="progress-bar">
+                    <div
+                      className="progress"
+                      style={{ width: `${rating.percentage}%` }}
+                    ></div>
+                  </div>
+                  <span className="review-count">({rating.count})</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="review-list">
+            {currentReviews.map((review, index) => (
+              <div key={index} className="review-card">
+                <div className="review-header">
+                  <div>
+                    <div className="star-rating">
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <Star key={star} filled={star <= review.rate} />
+                      ))}
                     </div>
-                  </CardHeader>
-                  <Card.Body className="p-3">
-                    <CardText
-                      className="text-black mb-2"
-                      style={{ fontSize: "0.9rem" }}
-                    >
-                      {review.review_content}
-                    </CardText>
-                    <CardText
-                      className="text-black mb-2 reviewer"
-                      style={{ fontSize: "0.9rem" }}
-                    >
-                      {review.reviewerName}
-                    </CardText>
-                    <CardText
-                      className="text-black mb-2 reviewer"
-                      style={{ fontSize: "0.9rem" }}
-                    >
-                      {review.reviewerEmail}
-                    </CardText>
-                    <CardText
-                      className="text-muted mb-2"
-                      style={{ fontSize: "0.9rem" }}
-                    >
-                      {review.comment}
-                    </CardText>
-                    <small className="text-muted">
-                      {new Date(review.date).toLocaleDateString()}
-                    </small>
-                  </Card.Body>
-                </Card>
+                    <span className="verified-buyer">DOĞRULANMIŞ SATICI</span>
+                    <h3 className="reviewer-name">{review.user_name}</h3>
+                  </div>
+                  <span className="review-date">
+                    {review.date.toLocaleDateString("tr-TR", {
+                      day: "2-digit",
+                      month: "2-digit",
+                      year: "2-digit",
+                    })}
+                  </span>
+                </div>
+                <p className="review-content">{review.rewiews_content}</p>
               </div>
             ))}
-          </Slider>
+          </div>
+          <div className="pagination">
+            {Array.from(
+              { length: Math.ceil(reviews.length / reviewsPerPage) },
+              (_, i) => (
+                <button
+                  key={i}
+                  onClick={() => paginate(i + 1)}
+                  className={`page-number ${
+                    currentPage === i + 1 ? "active" : ""
+                  }`}
+                >
+                  {i + 1}
+                </button>
+              )
+            )}
+          </div>
         </div>
       </Container>
+      <Footer />
     </div>
   );
 }
-
 export default ProductDetail;
