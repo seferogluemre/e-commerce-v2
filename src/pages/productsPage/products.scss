@@ -40,3 +40,16 @@
     transform: translateY(-20px);
   }
 }
+
+.product-container {
+  position: relative;
+  .load-btn {
+    position: absolute;
+    width: 180px;
+    right: 0px;
+    color: aliceblue;
+    font-weight: bold;
+    bottom: 10px;
+    height: 40px;
+  }
+}

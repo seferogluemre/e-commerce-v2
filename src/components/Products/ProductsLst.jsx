@@ -11,18 +11,19 @@ import {
   CardHeader,
 } from "react-bootstrap";
 import { FaHeartCircleCheck } from "react-icons/fa6";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { getAllProducts } from "../../redux/slices/productSlice";
 import "./Products.scss";
 import { useNavigate } from "react-router-dom";
-
 import { MdShoppingCartCheckout } from "react-icons/md";
+
 function ProductsLst() {
   const { products, loading } = useSelector((store) => store.products);
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const [visibleCount, setVisibleCount] = useState(4);
 
   useEffect(() => {
     dispatch(getAllProducts());
@@ -39,14 +40,16 @@ function ProductsLst() {
       </div>
     );
   }
-  console.log(products);
+
+  const loadMore = () => {
+    setVisibleCount((prevCount) => prevCount + 4);
+  };
 
   return (
     <div className="">
-      <div className="text-center d-flex justify-content-center"></div>
       <Container>
         <Row>
-          {products?.map((item) => (
+          {products?.slice(0, visibleCount).map((item) => (
             <Col
               lg="4"
               md="6"
@@ -86,6 +89,13 @@ function ProductsLst() {
           ))}
         </Row>
       </Container>
+      {visibleCount < products.length && (
+        <div className="text-center my-4">
+          <Button onClick={loadMore} variant="primary">
+            Devamı Yükle
+          </Button>
+        </div>
+      )}
     </div>
   );
 }

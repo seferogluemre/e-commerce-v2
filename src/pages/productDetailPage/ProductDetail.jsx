@@ -110,17 +110,15 @@ function ProductDetail() {
   console.log(data);
 
   const getProductById = () => {
-    products &&
-      products.map((data) => {
-        if (data.id == id) {
-          dispatch(setSelectedProduct(data));
-        }
-      });
+    const product = products.find((data) => data.id == id);
+    if (product) {
+      dispatch(setSelectedProduct(product));
+    }
   };
 
   useEffect(() => {
     getProductById();
-  }, []);
+  }, [products]);
 
   return (
     <div>

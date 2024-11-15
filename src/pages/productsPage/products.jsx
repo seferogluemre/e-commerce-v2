@@ -1,8 +1,7 @@
 import Navbar from "../../components/navbar/navbar";
 import Footer from "../../components/footer/Footer";
 import { useParams } from "react-router-dom";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import {
   Col,
@@ -12,30 +11,41 @@ import {
   CardBody,
   CardHeader,
   CardText,
+  Button,
   CardImg,
 } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { FaHeartCircleCheck } from "react-icons/fa6";
 import { MdShoppingCartCheckout } from "react-icons/md";
+import "./products.scss";
 
 function Product() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [visibleCount, setVisibleCount] = useState(3);
   const navigate = useNavigate();
-
   const { category } = useParams();
+
+  const loadMore = () => {
+    setVisibleCount((prevCount) => prevCount + 3);
+  };
 
   useEffect(() => {
     const getAllProducts = async (categoryParams) => {
       setLoading(true);
       try {
         const response = await axios.get(
-          `https://dummyjson.com/products/category/${categoryParams}`
+          `https://dummyjson.com/products/category/${categoryParams}?limit=30&delay=120
+`
         );
-        const data = response.data.products;
+        console.log(response.data); // Yanıtı kontrol et
+        const data = response.data.products || []; // Veriyi kontrol et
         setProducts(data);
       } catch (error) {
-        console.error(error);
+        console.error(
+          "API Hatası:",
+          error.response ? error.response.data : error.message
+        );
       } finally {
         setLoading(false);
       }
@@ -58,9 +68,9 @@ function Product() {
   return (
     <>
       <Navbar />
-      <Container>
+      <Container className="product-container">
         <Row>
-          {products.map((item) => (
+          {products?.slice(0, visibleCount).map((item) => (
             <Col
               lg="4"
               md="6"
@@ -98,6 +108,9 @@ function Product() {
               </Card>
             </Col>
           ))}
+          <Button className="btn btn-warning load-btn" onClick={loadMore}>
+            Devamı.....
+          </Button>
         </Row>
       </Container>
       <Footer />

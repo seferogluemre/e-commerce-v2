@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 function ProductContent() {
   const [products, setProducts] = useState({
     laptops: [],
-    furniture: [],
+    womenClothes: [],
     mensShirts: [],
     mensWatches: [],
     womensJewellery: [],
@@ -21,7 +21,7 @@ function ProductContent() {
         const responses = await Promise.all([
           axios.get("https://dummyjson.com/products/category/laptops?limit=20"),
           axios.get(
-            "https://dummyjson.com/products/category/furniture?limit=20"
+            "https://dummyjson.com/products/category/womens-shoes?limit=20"
           ),
           axios.get(
             "https://dummyjson.com/products/category/mens-shirts?limit=20"
@@ -38,7 +38,7 @@ function ProductContent() {
         ]);
         setProducts({
           laptops: responses[0].data.products,
-          furniture: responses[1].data.products,
+          womenClothes: responses[1].data.products,
           mensShirts: responses[2].data.products,
           mensWatches: responses[3].data.products,
           womensJewellery: responses[4].data.products,
@@ -53,7 +53,7 @@ function ProductContent() {
 
   const categories = [
     { title: "Laptoplar", products: products.laptops },
-    { title: "Mobilya", products: products.furniture },
+    { title: "Kadın Giyim", products: products.womenClothes },
     { title: "Erkek Gömlekleri", products: products.mensShirts },
     { title: "Erkek Saatleri", products: products.mensWatches },
     { title: "Kadın Takıları", products: products.womensJewellery },
@@ -95,7 +95,7 @@ function ProductContent() {
                 className="next-btn btn-danger"
                 to={`/category/${category.title
                   .replace("Laptoplar", "laptops")
-                  .replace("Mobilya", "furniture")
+                  .replace("Kadın Giyim", "womens-shoes")
                   .replace("Erkek Gömlekleri", "mens-shirts")
                   .replace("Erkek Saatleri", "mens-watches")
                   .replace("Kadın Takıları", "womens-jewellery")
