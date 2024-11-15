@@ -4,11 +4,15 @@
     padding: 0px !important;
     justify-content: center;
   }
+  .col-xxl-4 {
+    width: 33%;
+    margin: 10px 0px !important;
+  }
   .category-image {
-    width: 145px;
+    width: 100% !important;
     transition: 0.2s ease-in-out;
     border-radius: 15%;
-    height: 100px;
+    height: 300px;
     cursor: pointer;
 
     &:hover {

@@ -3,12 +3,21 @@ import "./CategoryImages.scss";
 import { Link } from "react-router-dom";
 
 const images = [
-  "https://img.freepik.com/free-photo/modern-stationary-collection-arrangement_23-2149309641.jpg?uid=R173069664&ga=GA1.1.710140505.1726061336&semt=ais_hybrid",
-  "/src/components/images/image2.jpeg",
-  "/src/components/images/image2.jpeg",
-  "/src/components/images/image2.jpeg",
-  "/src/components/images/image2.jpeg",
-  "/src/components/images/image2.jpeg",
+  "/src/components/images/categoryImages/laptoplar.jpg",
+  "/src/components/images/categoryImages/erkekSaa.jpg",
+  "/src/components/images/categoryImages/erkekGiyim.jpg",
+  "/src/components/images/categoryImages/kadınTakıları.jpg",
+  "/src/components/images/categoryImages/kadınGiyim.jpg",
+  "/src/components/images/categoryImages/motorlar.jpg",
+];
+
+const category = [
+  "laptops",
+  "mens-watches",
+  "mens-shirts",
+  "womens-jewellery",
+  "womens-shoes",
+  "motorcycle",
 ];
 
 function CategoryImages() {
@@ -21,7 +30,7 @@ function CategoryImages() {
               className="col-sm-6 col-md-4 col-lg-4 col-xxl-4 mb-2"
               key={index}
             >
-              <Link to={"/"}>
+              <Link to={"/category/" + category[index]}>
                 <img src={img} className="category-image" />
               </Link>
             </div>
