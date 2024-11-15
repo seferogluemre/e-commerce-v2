@@ -53,3 +53,21 @@
     height: 40px;
   }
 }
+
+@media (max-width: 578px) {
+  .product-container {
+    .card {
+      height: 490px !important;
+    }
+
+    .load-btn {
+      position: absolute;
+      width: 180px;
+      right: 0px;
+      color: aliceblue;
+      font-weight: bold;
+      bottom: -30px;
+      height: 40px;
+    }
+  }
+}

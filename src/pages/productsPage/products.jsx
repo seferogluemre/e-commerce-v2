@@ -18,6 +18,8 @@ import { useNavigate } from "react-router-dom";
 import { FaHeartCircleCheck } from "react-icons/fa6";
 import { MdShoppingCartCheckout } from "react-icons/md";
 import "./products.scss";
+import { addToFavorite } from "../../redux/slices/favoriteSlice";
+import { useDispatch } from "react-redux";
 
 function Product() {
   const [products, setProducts] = useState([]);
@@ -25,6 +27,7 @@ function Product() {
   const [visibleCount, setVisibleCount] = useState(3);
   const navigate = useNavigate();
   const { category } = useParams();
+  const dispatch = useDispatch();
 
   const loadMore = () => {
     setVisibleCount((prevCount) => prevCount + 3);
@@ -35,8 +38,7 @@ function Product() {
       setLoading(true);
       try {
         const response = await axios.get(
-          `https://dummyjson.com/products/category/${categoryParams}?limit=30&delay=120
-`
+          `https://dummyjson.com/products/category/${categoryParams}?limit=30&delay=120`
         );
         console.log(response.data); // Yanıtı kontrol et
         const data = response.data.products || []; // Veriyi kontrol et
@@ -65,49 +67,60 @@ function Product() {
     );
   }
 
+  const handleFavorite = (product) => {
+    dispatch(addToFavorite(product));
+  };
+
   return (
     <>
       <Navbar />
       <Container className="product-container mt-4">
         <Row>
-          {products?.slice(0, visibleCount).map((item) => (
-            <Col
-              lg="4"
-              md="6"
-              xxl="3"
-              xl="4"
-              sm="6"
-              className="d-flex flex-column align-items-center justify-content-center"
-              key={item.id}
-            >
-              <Card className="card">
-                <CardHeader className="card-header">
-                  <CardImg className="card-img-overlay" src={item.thumbnail} />
-                </CardHeader>
+          {products
+            ?.slice(0, visibleCount)
+            .map(({ id, brand, title, price, thumbnail }) => (
+              <Col
+                lg="4"
+                md="6"
+                xxl="3"
+                xl="4"
+                sm="6"
+                className="d-flex flex-column align-items-center justify-content-center"
+                key={id}
+              >
+                <Card className="card">
+                  <CardHeader className="card-header">
+                    <CardImg className="card-img-overlay" src={thumbnail} />
+                  </CardHeader>
 
-                <CardBody className="card-body">
-                  <FaHeartCircleCheck className="fs-3 favorite-icon" />
-                  <CardText className="card-text-price py-2">
-                    <strong>{item.brand}</strong>
-                  </CardText>
-                  <CardText className="card-text-price py-2">
-                    {item.title}
-                  </CardText>
-                  <CardText className="card-text-price py-2">
-                    {item.price}$
-                  </CardText>
-                  <a
-                    className="btn btn-danger"
-                    id="addBtn"
-                    onClick={() => navigate(`/product-detail/${item.id}`)}
-                  >
-                    <MdShoppingCartCheckout className="fs-3 mx-1" />
-                    Ekle
-                  </a>
-                </CardBody>
-              </Card>
-            </Col>
-          ))}
+                  <CardBody className="card-body">
+                    <FaHeartCircleCheck
+                      className="fs-3 favorite-icon"
+                      onClick={() =>
+                        handleFavorite({ id, brand, title, price, thumbnail })
+                      }
+                    />
+                    <CardText className="card-text-price py-2">
+                      <strong>{brand}</strong>
+                    </CardText>
+                    <CardText className="card-text-price py-2">
+                      {title}
+                    </CardText>
+                    <CardText className="card-text-price py-2">
+                      {price}$
+                    </CardText>
+                    <a
+                      className="btn btn-danger"
+                      id="addBtn"
+                      onClick={() => navigate(`/product-detail/${id}`)}
+                    >
+                      <MdShoppingCartCheckout className="fs-3 mx-1" />
+                      Ekle
+                    </a>
+                  </CardBody>
+                </Card>
+              </Col>
+            ))}
           <Button className="btn btn-warning load-btn" onClick={loadMore}>
             Devamı.....
           </Button>
@@ -117,5 +130,4 @@ function Product() {
     </>
   );
 }
-
 export default Product;

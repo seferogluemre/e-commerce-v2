@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import Navbar from "../../components/navbar/navbar";
 import { useSelector } from "react-redux";
@@ -343,16 +343,29 @@ function ProductDetail() {
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  const getProductById = () => {
+  const getProductById = useCallback(() => {
     const product = products.find((data) => data.id == id);
     if (product) {
       dispatch(setSelectedProduct(product));
     }
-  };
+  }, [dispatch, id, products]);
 
   useEffect(() => {
     getProductById();
-  }, [products]);
+    window.scrollTo(0, 0);
+  }, [getProductById]);
+
+  useEffect(() => {
+    if (!data) {
+      getProductById();
+    }
+  }, [data, getProductById]);
+
+  useEffect(() => {
+    if (!data && id) {
+      getProductById();
+    }
+  }, [data, id, getProductById]);
 
   return (
     <div>

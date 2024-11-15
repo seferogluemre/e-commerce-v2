@@ -19,10 +19,12 @@ import { FaHeartCircleCheck } from "react-icons/fa6";
 import "./StarProducts.scss";
 import { useNavigate } from "react-router-dom";
 import Slider from "react-slick";
+import { addToFavorite } from "../../redux/slices/favoriteSlice";
+import { useDispatch } from "react-redux";
 
 function StarProduct() {
   const [products, setProducts] = useState([]);
-
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -124,6 +126,10 @@ function StarProduct() {
     ],
   };
 
+  const handleFavorites = (product) => {
+    dispatch(addToFavorite(product));
+  };
+
   return (
     <>
       <Container className="my-5 p-3 star-products-container">
@@ -134,7 +140,7 @@ function StarProduct() {
         </div>
         <Row className="">
           <Slider {...settings} className="">
-            {products.map((item) => (
+            {products.map(({ id, brand, title, thumbnail, price }) => (
               <Col
                 lg="4"
                 md="6"
@@ -142,31 +148,39 @@ function StarProduct() {
                 xl="4"
                 sm="6"
                 className="d-flex flex-column align-items-center justify-content-center"
-                key={item.id}
+                key={id}
               >
                 <Card className="card">
                   <CardHeader className="card-header">
-                    <CardImg
-                      className="card-img-overlay"
-                      src={item.thumbnail}
-                    />
+                    <CardImg className="card-img-overlay" src={thumbnail} />
                   </CardHeader>
 
                   <CardBody className="card-body">
-                    <FaHeartCircleCheck className="fs-3 favorite-icon" />
+                    <FaHeartCircleCheck
+                      className="fs-3 favorite-icon"
+                      onClick={() => {
+                        handleFavorites({
+                          id,
+                          price,
+                          title,
+                          brand,
+                          thumbnail,
+                        });
+                      }}
+                    />
                     <CardText className="card-text-price py-2">
-                      <strong>{item.brand}</strong>
+                      <strong>{brand}</strong>
                     </CardText>
                     <CardText className="card-text-price py-2">
-                      {item.title}
+                      {title}
                     </CardText>
                     <CardText className="card-text-price py-2">
-                      {item.price}$
+                      {price}$
                     </CardText>
                     <a
                       className="btn btn-danger"
                       id="addBtn"
-                      onClick={() => navigate(`/product-detail/${item.id}`)}
+                      onClick={() => navigate(`/product-detail/${id}`)}
                     >
                       <MdShoppingCartCheckout className="fs-3 mx-1" />
                       Ekle

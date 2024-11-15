@@ -13,12 +13,6 @@ export const getAllProducts = createAsyncThunk("getProduct", async () => {
   }
 });
 
-
-
-
-
-
-
 const initialState = {
   products: [],
   detailProducts: [],

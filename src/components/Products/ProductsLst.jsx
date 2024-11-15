@@ -10,19 +10,18 @@ import {
   CardText,
   CardHeader,
 } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import { FaHeartCircleCheck } from "react-icons/fa6";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { getAllProducts } from "../../redux/slices/productSlice";
 import "./Products.scss";
-import { useNavigate } from "react-router-dom";
 import { MdShoppingCartCheckout } from "react-icons/md";
+import { addToFavorite } from "../../redux/slices/favoriteSlice";
 
 function ProductsLst() {
   const { products, loading } = useSelector((store) => store.products);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-
   const [visibleCount, setVisibleCount] = useState(4);
 
   useEffect(() => {
@@ -41,6 +40,10 @@ function ProductsLst() {
     );
   }
 
+  const handleFavorites = (product) => {
+    dispatch(addToFavorite(product));
+  };
+
   const loadMore = () => {
     setVisibleCount((prevCount) => prevCount + 4);
   };
@@ -50,44 +53,58 @@ function ProductsLst() {
       <Container style={{ marginTop: "90px" }}>
         <div className="text-center pb-5 fs-3">Öne Çıkanlar</div>
         <Row>
-          {products?.slice(0, visibleCount).map((item) => (
-            <Col
-              lg="4"
-              md="6"
-              xxl="3"
-              xl="4"
-              sm="6"
-              className="d-flex flex-column align-items-center justify-content-center"
-              key={item.id}
-            >
-              <Card className="card">
-                <CardHeader className="card-header">
-                  <CardImg className="card-img-overlay" src={item.thumbnail} />
-                </CardHeader>
-
-                <CardBody className="card-body">
-                  <FaHeartCircleCheck className="fs-3 favorite-icon" />
-                  <CardText className="card-text-price py-2">
-                    <strong>{item.brand}</strong>
-                  </CardText>
-                  <CardText className="card-text-price py-2">
-                    {item.title}
-                  </CardText>
-                  <CardText className="card-text-price py-2">
-                    {item.price}$
-                  </CardText>
-                  <a
-                    className="btn btn-danger"
-                    id="addBtn"
-                    onClick={() => navigate(`/product-detail/${item.id}`)}
-                  >
-                    <MdShoppingCartCheckout className="fs-3 mx-1" />
-                    Ekle
-                  </a>
-                </CardBody>
-              </Card>
-            </Col>
-          ))}
+          {products
+            ?.slice(0, visibleCount)
+            .map(({ id, brand, thumbnail, title, price }) => (
+              <Col
+                lg="4"
+                md="6"
+                xxl="3"
+                xl="4"
+                sm="6"
+                className="d-flex flex-column align-items-center justify-content-center"
+                key={id}
+              >
+                <Card className="card">
+                  <CardHeader className="card-header">
+                    <CardImg className="card-img-overlay" src={thumbnail} />
+                    <a>
+                      <FaHeartCircleCheck
+                        className="fs-1 favorite-icon"
+                        onClick={() => {
+                          handleFavorites({
+                            id,
+                            price,
+                            title,
+                            brand,
+                            thumbnail,
+                          });
+                        }}
+                      />
+                    </a>
+                  </CardHeader>
+                  <CardBody className="card-body">
+                    <CardText className="card-text-price py-2">
+                      <strong>{brand}</strong>
+                    </CardText>
+                    <CardText className="card-text-price py-2">
+                      {title}
+                    </CardText>
+                    <CardText className="card-text-price py-2">
+                      {price}$
+                    </CardText>
+                    <Link
+                      className="btn btn-danger"
+                      id="addBtn"
+                      to={"/product-detail/" + id}
+                    >
+                      <MdShoppingCartCheckout className="fs-3 mx-1" />
+                      Ekle
+                    </Link>
+                  </CardBody>
+                </Card>
+              </Col>
+            ))}
         </Row>
       </Container>
       {visibleCount < products.length && (

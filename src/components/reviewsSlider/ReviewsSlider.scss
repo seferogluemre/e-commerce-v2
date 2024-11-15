@@ -21,4 +21,14 @@ body {
   .slick-dots {
     display: none !important;
   }
+  .card {
+    width: 300px;
+  }
+}
+@media (max-width: 578px) {
+  .reviews-slider-container {
+    .card {
+      width: 450px !important;
+    }
+  }
 }
