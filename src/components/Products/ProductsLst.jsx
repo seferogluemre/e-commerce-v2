@@ -17,10 +17,15 @@ import { useDispatch } from "react-redux";
 import { getAllProducts } from "../../redux/slices/productSlice";
 import "./Products.scss";
 import { MdShoppingCartCheckout } from "react-icons/md";
-import { addToFavorite } from "../../redux/slices/favoriteSlice";
+import {
+  addToFavorite,
+  removeFavorites,
+} from "../../redux/slices/favoriteSlice";
+import { FaHeartCircleMinus } from "react-icons/fa6";
 
 function ProductsLst() {
   const { products, loading } = useSelector((store) => store.products);
+  const { favoriteProducts } = useSelector((store) => store.favorites);
   const dispatch = useDispatch();
   const [visibleCount, setVisibleCount] = useState(4);
 
@@ -41,7 +46,12 @@ function ProductsLst() {
   }
 
   const handleFavorites = (product) => {
-    dispatch(addToFavorite(product));
+    const findProduct = favoriteProducts.find((fav) => fav.id === product.id);
+    if (findProduct) {
+      dispatch(removeFavorites(product));
+    } else {
+      dispatch(addToFavorite(product));
+    }
   };
 
   const loadMore = () => {
@@ -55,56 +65,76 @@ function ProductsLst() {
         <Row>
           {products
             ?.slice(0, visibleCount)
-            .map(({ id, brand, thumbnail, title, price }) => (
-              <Col
-                lg="4"
-                md="6"
-                xxl="3"
-                xl="4"
-                sm="6"
-                className="d-flex flex-column align-items-center justify-content-center"
-                key={id}
-              >
-                <Card className="card">
-                  <CardHeader className="card-header">
-                    <CardImg className="card-img-overlay" src={thumbnail} />
-                    <a>
-                      <FaHeartCircleCheck
-                        className="fs-1 favorite-icon"
-                        onClick={() => {
-                          handleFavorites({
-                            id,
-                            price,
-                            title,
-                            brand,
-                            thumbnail,
-                          });
-                        }}
-                      />
-                    </a>
-                  </CardHeader>
-                  <CardBody className="card-body">
-                    <CardText className="card-text-price py-2">
-                      <strong>{brand}</strong>
-                    </CardText>
-                    <CardText className="card-text-price py-2">
-                      {title}
-                    </CardText>
-                    <CardText className="card-text-price py-2">
-                      {price}$
-                    </CardText>
-                    <Link
-                      className="btn btn-danger"
-                      id="addBtn"
-                      to={"/product-detail/" + id}
-                    >
-                      <MdShoppingCartCheckout className="fs-3 mx-1" />
-                      Ekle
-                    </Link>
-                  </CardBody>
-                </Card>
-              </Col>
-            ))}
+            .map(({ id, brand, thumbnail, title, price }) => {
+              const isFavorite = favoriteProducts.some((fav) => fav.id === id);
+              return (
+                <Col
+                  lg="4"
+                  md="6"
+                  xxl="3"
+                  xl="4"
+                  sm="6"
+                  className="d-flex flex-column align-items-center justify-content-center"
+                  key={id}
+                >
+                  <Card className="card">
+                    <CardHeader className="card-header">
+                      <CardImg className="card-img-overlay" src={thumbnail} />
+                      <a>
+                        {isFavorite ? (
+                          <FaHeartCircleMinus
+                            className="fs-1 favorite-icon"
+                            style={{ color: "red" }} // Favorideyse kırmızı
+                            onClick={() =>
+                              handleFavorites({
+                                id,
+                                price,
+                                title,
+                                brand,
+                                thumbnail,
+                              })
+                            }
+                          />
+                        ) : (
+                          <FaHeartCircleCheck
+                            className="fs-1 favorite-icon"
+                            onClick={() =>
+                              handleFavorites({
+                                id,
+                                price,
+                                title,
+                                brand,
+                                thumbnail,
+                              })
+                            }
+                          />
+                        )}
+                      </a>
+                    </CardHeader>
+
+                    <CardBody className="card-body">
+                      <CardText className="card-text-price py-2">
+                        <strong>{brand}</strong>
+                      </CardText>
+                      <CardText className="card-text-price py-2">
+                        {title}
+                      </CardText>
+                      <CardText className="card-text-price py-2">
+                        {price}$
+                      </CardText>
+                      <Link
+                        className="btn btn-danger"
+                        id="addBtn"
+                        to={"/product-detail/" + id}
+                      >
+                        <MdShoppingCartCheckout className="fs-3 mx-1" />
+                        Ekle
+                      </Link>
+                    </CardBody>
+                  </Card>
+                </Col>
+              );
+            })}
         </Row>
       </Container>
       {visibleCount < products.length && (

@@ -15,11 +15,15 @@ import {
   CardImg,
 } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { FaHeartCircleCheck } from "react-icons/fa6";
+import { FaHeartCircleCheck, FaHeartCircleMinus } from "react-icons/fa6";
 import { MdShoppingCartCheckout } from "react-icons/md";
 import "./products.scss";
-import { addToFavorite } from "../../redux/slices/favoriteSlice";
+import {
+  addToFavorite,
+  removeFavorites,
+} from "../../redux/slices/favoriteSlice";
 import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 function Product() {
   const [products, setProducts] = useState([]);
@@ -27,6 +31,7 @@ function Product() {
   const [visibleCount, setVisibleCount] = useState(3);
   const navigate = useNavigate();
   const { category } = useParams();
+  const { favoriteProducts } = useSelector((store) => store.favorites);
   const dispatch = useDispatch();
 
   const loadMore = () => {
@@ -68,7 +73,12 @@ function Product() {
   }
 
   const handleFavorite = (product) => {
-    dispatch(addToFavorite(product));
+    const findProduct = favoriteProducts.find((prev) => prev.id === product.id);
+    if (findProduct) {
+      dispatch(removeFavorites(product));
+    } else {
+      dispatch(addToFavorite(product));
+    }
   };
 
   return (
@@ -78,49 +88,76 @@ function Product() {
         <Row>
           {products
             ?.slice(0, visibleCount)
-            .map(({ id, brand, title, price, thumbnail }) => (
-              <Col
-                lg="4"
-                md="6"
-                xxl="3"
-                xl="4"
-                sm="6"
-                className="d-flex flex-column align-items-center justify-content-center"
-                key={id}
-              >
-                <Card className="card">
-                  <CardHeader className="card-header">
-                    <CardImg className="card-img-overlay" src={thumbnail} />
-                  </CardHeader>
+            .map(({ id, brand, title, price, thumbnail }) => {
+              const isFavorite = favoriteProducts.some(
+                (prev) => prev.id === id
+              );
+              return (
+                <Col
+                  lg="4"
+                  md="6"
+                  xxl="3"
+                  xl="4"
+                  sm="6"
+                  className="d-flex flex-column align-items-center justify-content-center"
+                  key={id}
+                >
+                  <Card className="card">
+                    <CardHeader className="card-header">
+                      <CardImg className="card-img-overlay" src={thumbnail} />
+                    </CardHeader>
 
-                  <CardBody className="card-body">
-                    <FaHeartCircleCheck
-                      className="fs-3 favorite-icon"
-                      onClick={() =>
-                        handleFavorite({ id, brand, title, price, thumbnail })
-                      }
-                    />
-                    <CardText className="card-text-price py-2">
-                      <strong>{brand}</strong>
-                    </CardText>
-                    <CardText className="card-text-price py-2">
-                      {title}
-                    </CardText>
-                    <CardText className="card-text-price py-2">
-                      {price}$
-                    </CardText>
-                    <a
-                      className="btn btn-danger"
-                      id="addBtn"
-                      onClick={() => navigate(`/product-detail/${id}`)}
-                    >
-                      <MdShoppingCartCheckout className="fs-3 mx-1" />
-                      Ekle
-                    </a>
-                  </CardBody>
-                </Card>
-              </Col>
-            ))}
+                    <CardBody className="card-body">
+                      {isFavorite ? (
+                        <FaHeartCircleMinus
+                          className="fs-3 favorite-icon"
+                          onClick={() =>
+                            handleFavorite({
+                              id,
+                              brand,
+                              title,
+                              price,
+                              thumbnail,
+                            })
+                          }
+                        />
+                      ) : (
+                        <FaHeartCircleCheck
+                          className="fs-3 favorite-icon"
+                          onClick={() =>
+                            handleFavorite({
+                              id,
+                              brand,
+                              title,
+                              price,
+                              thumbnail,
+                            })
+                          }
+                        />
+                      )}
+
+                      <CardText className="card-text-price py-2">
+                        <strong>{brand}</strong>
+                      </CardText>
+                      <CardText className="card-text-price py-2">
+                        {title}
+                      </CardText>
+                      <CardText className="card-text-price py-2">
+                        {price}$
+                      </CardText>
+                      <a
+                        className="btn btn-danger"
+                        id="addBtn"
+                        onClick={() => navigate(`/product-detail/${id}`)}
+                      >
+                        <MdShoppingCartCheckout className="fs-3 mx-1" />
+                        Ekle
+                      </a>
+                    </CardBody>
+                  </Card>
+                </Col>
+              );
+            })}
           <Button className="btn btn-warning load-btn" onClick={loadMore}>
             Devamı.....
           </Button>
