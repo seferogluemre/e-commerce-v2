@@ -107,7 +107,6 @@ function ProductContent() {
           </Container>
         ))}
       </div>
-      <Footer />
     </>
   );
 }

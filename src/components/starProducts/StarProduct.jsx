@@ -9,7 +9,8 @@ import {
   CardImg,
   CardText,
 } from "react-bootstrap";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa"; // F
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { IoStar } from "react-icons/io5";
 import axios from "axios";
 import { useEffect } from "react";
 import { MdShoppingCartCheckout } from "react-icons/md";
@@ -127,7 +128,9 @@ function StarProduct() {
     <>
       <Container className="my-5 p-3 star-products-container">
         <div className="text-center">
-          <h2>Yıldız Ürünler</h2>
+          <h2 className="fs-1 py-1 text-danger">
+            Yıldız Ürünler <IoStar className="fs-1 pb-1" />
+          </h2>
         </div>
         <Row className="">
           <Slider {...settings} className="">

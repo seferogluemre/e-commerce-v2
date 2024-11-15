@@ -1,0 +1,18 @@
+.category-container {
+  .col-sm-6 {
+    display: flex;
+    padding: 0px !important;
+    justify-content: center;
+  }
+  .category-image {
+    width: 145px;
+    transition: 0.2s ease-in-out;
+    border-radius: 15%;
+    height: 100px;
+    cursor: pointer;
+
+    &:hover {
+      transform: scale(1.03);
+    }
+  }
+}

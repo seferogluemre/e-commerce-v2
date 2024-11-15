@@ -5,6 +5,7 @@ import Footer from "/src/components/footer/Footer";
 import ReviewsSlider from "../../components/reviewsSlider/ReviewsSlider";
 import HeroSection from "/src/sections/herosection/HeroSection";
 import StarProduct from "../../components/starProducts/starProduct";
+import CategoryImages from "/src/components/categoryImages/CategoryImages";
 
 function home() {
   return (
@@ -12,8 +13,9 @@ function home() {
       <Navbar />
       <HeroSection />
       <ProductsLst />
-      <ReviewsSlider />
+      <CategoryImages />
       <StarProduct />
+      <ReviewsSlider />
       <Footer />
     </div>
   );
