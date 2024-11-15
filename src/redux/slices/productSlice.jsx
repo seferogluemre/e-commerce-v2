@@ -12,21 +12,12 @@ export const getAllProducts = createAsyncThunk("getProduct", async () => {
     throw error;
   }
 });
-export const getDetailProducts = createAsyncThunk(
-  "getDetailProduct",
-  async () => {
-    try {
-      const response = await axios.get(
-        `https://dummyjson.com/products?skip=15&limit=350`
-      );
-      console.log(response.data.products);
-      return response.data.products;
-    } catch (error) {
-      console.log(error);
-      throw error;
-    }
-  }
-);
+
+
+
+
+
+
 
 const initialState = {
   products: [],
@@ -61,20 +52,6 @@ export const productSlice = createSlice({
       state.products = action.payload;
     });
     // Detay Ürünlerinin Apı Durumu -----
-    builder.addCase(getDetailProducts.pending, (state) => {
-      state.loading = true;
-      state.error = null;
-    });
-
-    builder.addCase(getDetailProducts.rejected, (state, action) => {
-      state.loading = false;
-      state.error = action.error.message;
-    });
-
-    builder.addCase(getDetailProducts.fulfilled, (state, action) => {
-      state.loading = false;
-      state.detailProducts = action.payload;
-    });
   },
 });
 

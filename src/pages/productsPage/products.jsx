@@ -68,7 +68,7 @@ function Product() {
   return (
     <>
       <Navbar />
-      <Container className="product-container">
+      <Container className="product-container mt-4">
         <Row>
           {products?.slice(0, visibleCount).map((item) => (
             <Col
