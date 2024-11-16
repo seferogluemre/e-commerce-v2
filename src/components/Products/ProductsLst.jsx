@@ -28,6 +28,7 @@ function ProductsLst() {
   const { favoriteProducts } = useSelector((store) => store.favorites);
   const dispatch = useDispatch();
   const [visibleCount, setVisibleCount] = useState(4);
+  const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
     dispatch(getAllProducts());

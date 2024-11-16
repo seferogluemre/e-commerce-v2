@@ -4,3 +4,21 @@
     height: 50% !important;
   }
 }
+
+@media (max-width: 578px) {
+  .favorites-container {
+    .col-sm-6 {
+      width: 50% !important;
+      margin: 0px !important;
+      padding: 0px !important;
+      .card {
+        width: 150px !important;
+        height: 405px !important;
+        .card-body {
+          text-align: center;
+          padding: 100px 0px;
+        }
+      }
+    }
+  }
+}

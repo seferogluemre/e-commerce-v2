@@ -1,15 +1,16 @@
 import { useState, useEffect, useCallback } from "react";
 import { useParams } from "react-router-dom";
-import Navbar from "../../components/navbar/navbar";
+import Navbar from "../../components/navbar/NavbarComp";
 import { useSelector } from "react-redux";
 
 import { setSelectedProduct } from "../../redux/slices/productSlice";
 import { useDispatch } from "react-redux";
-import { Container, Row, Col, Accordion } from "react-bootstrap";
+import { Container, Row, Col, Accordion, Button } from "react-bootstrap";
 import { FaStar } from "react-icons/fa";
 import { FcApproval } from "react-icons/fc";
 import { CiFaceSmile } from "react-icons/ci";
 import "./ProductDetail.scss";
+// import { addToCart } from "/src/redux/slices/basketSlice";
 import Footer from "/src/components/footer/Footer";
 import { IoMdAdd } from "react-icons/io";
 import { FiMinus } from "react-icons/fi";
@@ -317,8 +318,9 @@ function ProductDetail() {
   const [currentPage, setCurrentPage] = useState(1);
   const reviewsPerPage = 8;
   const { id } = useParams();
+  const { description, title, price, thumbnail } = selectedProduct || {};
   const data = selectedProduct;
-  console.log(data);
+  const [count, setCount] = useState(1);
 
   useEffect(() => {
     const totalReviews = reviews.length;
@@ -340,15 +342,14 @@ function ProductDetail() {
   const indexOfLastReview = currentPage * reviewsPerPage;
   const indexOfFirstReview = indexOfLastReview - reviewsPerPage;
   const currentReviews = reviews.slice(indexOfFirstReview, indexOfLastReview);
-
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const getProductById = useCallback(() => {
     const product = products.find((data) => data.id == id);
-    if (product) {
+    if (product && product !== selectedProduct) {
       dispatch(setSelectedProduct(product));
     }
-  }, [dispatch, id, products]);
+  }, [dispatch, id, products, selectedProduct]);
 
   useEffect(() => {
     getProductById();
@@ -356,16 +357,24 @@ function ProductDetail() {
   }, [getProductById]);
 
   useEffect(() => {
-    if (!data) {
-      getProductById();
-    }
-  }, [data, getProductById]);
-
-  useEffect(() => {
     if (!data && id) {
       getProductById();
     }
   }, [data, id, getProductById]);
+
+  const addToBasketCart = () => {
+    if (count <= 0) return;
+    const payload = {
+      id,
+      price,
+      title,
+      description,
+      thumbnail,
+      count: count,
+    };
+    dispatch(addToCart(payload));
+    console.log("Ürün sepete eklendi:", payload);
+  };
 
   return (
     <div>
@@ -390,13 +399,24 @@ function ProductDetail() {
               <div className="fs-2 display-3 fw-bold my-3 ">{data.brand}</div>
               <div className="fs-4 fw-medium">{data.title}</div>
               <div className="text-danger fs-5 my-2">{data.price}$</div>
-              <div className="d-flex column-gap-3 my-4">
+              <div className="d-flex column-gap-3 my-4 justify-content-center">
                 <div className="increase-decrease-content">
-                  <IoMdAdd className="fs-3" />
+                  <IoMdAdd
+                    className="fs-3"
+                    onClick={() => setCount(count + 1)}
+                  />
                 </div>
-                <div className="fw-bold">312</div>
+                <div className="fw-bold">{count}</div>
                 <div className="increase-decrease-content">
-                  <FiMinus className="fs-3" />
+                  <FiMinus
+                    className="fs-3"
+                    onClick={() => setCount(count > 1 ? count - 1 : 1)}
+                  />
+                </div>
+                <div className="text-end">
+                  <Button className="btn-warning" onClick={addToBasketCart}>
+                    Sepete Ekle
+                  </Button>
                 </div>
               </div>
               <div className="d-flex justify-content-center my-3 align-items-center column-gap-2">

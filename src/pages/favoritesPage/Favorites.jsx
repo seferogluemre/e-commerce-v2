@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import Footer from "/src/components/footer/Footer";
-import Navbar from "/src/components/navbar/navbar";
+import Navbar from "/src/components/navbar/NavbarComp";
 import ReviewsSlider from "/src/components/reviewsSlider/ReviewsSlider";
 import {
   Col,
@@ -24,20 +24,22 @@ function Favorites() {
   const { favoriteProducts } = useSelector((store) => store.favorites);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const handleFavorites = (product) => {
     const findProduct = favoriteProducts.find((prev) => prev.id === product.id);
     if (findProduct) {
       dispatch(removeFavorites(product));
     } else dispatch(addToFavorite(product));
   };
+
   return (
     <>
       <Navbar />
       <div className="container p-4 favorites-container">
         <h1 className="h2 fw-bold mb-4">Favori Ürünlerim</h1>
-        <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+        <div className="row justify-content-center ">
           {favoriteProducts.length > 0 ? ( // {{ edit_1 }}
-            <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+            <div className="row ">
               {favoriteProducts.map(
                 ({ thumbnail, id, price, title, brand }) => {
                   const isFavorite = favoriteProducts.find(
@@ -50,7 +52,7 @@ function Favorites() {
                       xxl="3"
                       xl="4"
                       sm="6"
-                      className="d-flex flex-column align-items-center justify-content-center"
+                      className="d-flex col-sm-6 mx-3 flex-column align-items-center justify-content-center"
                       key={id}
                     >
                       <Card className="card">
@@ -117,13 +119,12 @@ function Favorites() {
             </div>
           ) : (
             <div className="text-center py-5 my-5">
-              <h3>Favori ürününüz bulunmamaktadır ☹️... </h3>
+              <h2 className="fs-1">Favori ürününüz bulunmamaktadır ☹️... </h2>
             </div>
           )}
         </div>
       </div>
       <ReviewsSlider />
-
       <Footer />
     </>
   );

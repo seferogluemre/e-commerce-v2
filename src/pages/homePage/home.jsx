@@ -1,5 +1,5 @@
 import "./home.scss";
-import Navbar from "../../components/navbar/navbar";
+import Navbar from "/src/components/navbar/NavbarComp";
 import ProductsLst from "../../components/Products/ProductsLst";
 import Footer from "/src/components/footer/Footer";
 import ReviewsSlider from "../../components/reviewsSlider/ReviewsSlider";

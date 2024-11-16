@@ -14,3 +14,39 @@
     justify-content: center !important;
   }
 }
+// src/components/navbar/navbar.scss
+
+.offcanvas-body {
+  // ... mevcut stiller ...
+
+  .d-flex {
+    // Ürün başlığını daha geniş bir alana yaymak için
+    &.flex-column {
+      .d-flex.align-items-center {
+        // Fotoğrafı sola kaydırmak için
+        img {
+          margin-right: 0.5rem; // Fotoğraf ile metin arasındaki boşluğu azalt
+        }
+        // Metin alanını genişletmek için
+        .product-title {
+          flex: 1; // Metin alanını genişlet
+          // İsteğe bağlı: metin hizalamasını ayarlamak için
+          text-align: left; // Metni sola hizala
+        }
+      }
+    }
+  }
+
+  // Toplam kısmını en altta sabit tutmak için
+  .justify-content-between {
+    position: absolute; // Sabit konumlandırma
+    bottom: 1rem; // Alt boşluk
+    left: 0;
+    right: 0;
+  }
+
+  // Arttırma ve eksiltme butonlarını sağa kaydırmak için
+  .d-flex.align-items-center {
+    justify-content: flex-end; // Butonları sağa hizala
+  }
+}

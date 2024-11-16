@@ -1,5 +1,5 @@
-import Navbar from "../../components/navbar/navbar";
-import Footer from "../../components/footer/Footer";
+import Navbar from "/src/components/navbar/NavbarComp";
+import Footer from "/src/components/footer/Footer";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";

@@ -40,6 +40,15 @@ $transition-speed: 0.3s;
       align-items: flex-start;
     }
   }
+  .pagination {
+    .page-number {
+      width: 50px;
+      background-color: #666;
+      margin: 10px 20px;
+      border: none;
+      border-radius: 25%;
+    }
+  }
 
   .rating-summary {
     text-align: center;
@@ -189,7 +198,6 @@ body {
 }
 
 .increase-decrease-content {
-  box-shadow: 0 0 5px black;
   border-radius: 25px;
 }
 .reviewer {
