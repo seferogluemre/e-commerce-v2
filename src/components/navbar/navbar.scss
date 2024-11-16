@@ -1,0 +1,16 @@
+@media (max-width: 992px) {
+  .navbar {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between !important;
+    .navbar-collapse {
+      display: flex !important;
+    }
+  }
+}
+@media (max-width: 578px) {
+  .navbar-collapse {
+    display: flex !important;
+    justify-content: center !important;
+  }
+}

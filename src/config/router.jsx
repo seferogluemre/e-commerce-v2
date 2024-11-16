@@ -4,6 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import Home from "../pages/homePage/home";
 import Category from "../pages/categoryPage/Category";
 import Products from "../pages/productsPage/products";
+import Favorites from "/src/pages/favoritesPage/Favorites";
 
 function router() {
   return (
@@ -13,6 +14,7 @@ function router() {
       <Route path="/product-detail/:id" element={<ProductDetail />} />
       <Route path="/category" element={<Category />}></Route>
       <Route path="/category/:category" element={<Products />}></Route>
+      <Route path="/favorites" element={<Favorites />}></Route>
     </Routes>
   );
 }
