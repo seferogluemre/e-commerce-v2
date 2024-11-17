@@ -14,6 +14,7 @@ export const getAllProducts = createAsyncThunk("getProduct", async () => {
 });
 
 const initialState = {
+  fetchProducts: [],
   products: [],
   detailProducts: [],
   selectedProduct: null,
@@ -43,6 +44,7 @@ export const productSlice = createSlice({
 
     builder.addCase(getAllProducts.fulfilled, (state, action) => {
       state.loading = false;
+      state.fetchProducts = action.payload;
       state.products = action.payload;
     });
     // Detay Ürünlerinin Apı Durumu -----

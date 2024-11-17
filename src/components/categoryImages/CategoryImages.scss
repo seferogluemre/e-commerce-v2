@@ -21,3 +21,11 @@
     }
   }
 }
+@media (max-width: 576px) {
+  .category-container {
+    .category-image {
+      width: 190px !important;
+      height: 180px;
+    }
+  }
+}

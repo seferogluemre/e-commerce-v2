@@ -5,6 +5,8 @@ import Category from "../pages/categoryPage/Category";
 import Products from "../pages/productsPage/products";
 import Favorites from "/src/pages/favoritesPage/Favorites";
 import Cart from "/src/pages/myCartPage/myCart";
+import SearchPage from "../pages/searchPage/SearchPage";
+
 function router() {
   return (
     <Routes>
@@ -15,6 +17,7 @@ function router() {
       <Route path="/category/:category" element={<Products />}></Route>
       <Route path="/favorites" element={<Favorites />}></Route>
       <Route path="/sepet" element={<Cart />}></Route>
+      <Route path="/search/:search" element={<SearchPage />}></Route>
     </Routes>
   );
 }

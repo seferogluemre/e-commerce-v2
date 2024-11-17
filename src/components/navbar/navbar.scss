@@ -13,6 +13,7 @@
     display: flex !important;
     justify-content: center !important;
   }
+  
 }
 .product-cart-item {
   padding: 5px;
@@ -27,4 +28,10 @@
     bottom: 0px !important;
     box-shadow: 0 4px 12px rgb(0, 0, 0) !important;
   }
+}
+.filtered-container {
+  position: relative !important;
+  left: 45% !important;
+  width: 300px !important;
+  background-color: red;
 }

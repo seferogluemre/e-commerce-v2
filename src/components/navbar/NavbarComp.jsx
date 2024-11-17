@@ -21,6 +21,7 @@ import { useNavigate } from "react-router-dom";
 function NavbarComp() {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
+  const [searchTerm, setSearchTerm] = useState("");
 
   const toggleDrawer = () => {
     setIsOpen((prevState) => !prevState);
@@ -43,11 +44,17 @@ function NavbarComp() {
 
   const navigate = useNavigate();
 
+  const handleSearchSubmit = (e) => {
+    if (e.key === "Enter") {
+      navigate(`/search/` + searchTerm);
+    }
+  };
+
   return (
     <div>
       <Navbar expand="lg" className="shadow-lg">
         <Container>
-          <Navbar.Brand href="/">
+          <Navbar.Brand href="/" className="">
             <img
               src={BrandPhoto}
               width={90}
@@ -61,6 +68,12 @@ function NavbarComp() {
             className="justify-content-end navbar-collapse collapse"
             style={{ zIndex: 2 }}
           >
+            <input
+              type="text"
+              value={searchTerm}
+              onKeyDown={handleSearchSubmit}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
             <Link className="nav-link px-4" to={"/category"}>
               Kategoriler
             </Link>
