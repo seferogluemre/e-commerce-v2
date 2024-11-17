@@ -48,7 +48,7 @@ function NavbarComp() {
         <Container>
           <Navbar.Brand href="/">
             <img
-              src="/public/images/logo.jpeg"
+              src="../../../public/images/logo.jpeg"
               width={90}
               height={95}
               style={{ zIndex: 1 }}
@@ -89,7 +89,7 @@ function NavbarComp() {
                 {carts?.length > 0 ? (
                   carts.map((item) => (
                     <div
-                      className="d-flex align-items-center text-center flex-column gap-3 3 border rounded mb-4"
+                      className="d-flex product-cart-item align-items-center text-center flex-column gap-3 3 border rounded mb-4"
                       key={item.id}
                     >
                       <div>
@@ -130,14 +130,14 @@ function NavbarComp() {
                             +
                           </Button>
                         </div>
-                        <Button
-                          variant="danger"
-                          onClick={() => removeItem(item.id)}
-                          aria-label="Remove item"
-                        >
-                          <IoMdTrash />
-                        </Button>
                       </div>
+                      <Button
+                        variant="danger"
+                        onClick={() => removeItem(item.id)}
+                        aria-label="Remove item"
+                      >
+                        <IoMdTrash />
+                      </Button>
                     </div>
                   ))
                 ) : (

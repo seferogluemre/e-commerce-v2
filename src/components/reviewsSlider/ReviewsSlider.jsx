@@ -213,6 +213,7 @@ export default function SimpleSlider() {
 
   // Özel ok butonları için
   const CustomPrevArrow = (props) => {
+    // eslint-disable-next-line react/prop-types
     const { onClick } = props;
     return (
       <button
@@ -238,6 +239,7 @@ export default function SimpleSlider() {
   };
 
   const CustomNextArrow = (props) => {
+    // eslint-disable-next-line react/prop-types
     const { onClick } = props;
     return (
       <button

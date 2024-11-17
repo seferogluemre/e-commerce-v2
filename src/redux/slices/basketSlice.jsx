@@ -33,6 +33,7 @@ const basketSlice = createSlice({
         existingItem.count += action.payload.count;
       } else {
         state.items.push(action.payload);
+        // eslint-disable-next-line no-undef
         confetti();
       }
       // Sepet verisini güncelle ve toplam fiyatı hesapla
@@ -73,7 +74,7 @@ const basketSlice = createSlice({
         if (existingItem.count > 1) {
           existingItem.count -= 1;
         } else {
-          ""
+          ("");
         }
         localStorage.setItem("basketItems", JSON.stringify(state.items));
         state.totalPrice = state.items.reduce(

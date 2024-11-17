@@ -10,7 +10,7 @@ import {
   CardText,
 } from "react-bootstrap";
 
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { FaChevronRight } from "react-icons/fa";
 import { IoStar } from "react-icons/io5";
 import axios from "axios";
 import { useEffect } from "react";
@@ -49,6 +49,7 @@ function StarProduct() {
   }, []);
 
   const CustomPrevArrow = (props) => {
+    // eslint-disable-next-line react/prop-types
     const { onClick } = props;
     return (
       <button
@@ -67,13 +68,12 @@ function StarProduct() {
           justifyContent: "center",
           cursor: "pointer",
         }}
-      >
-        <FaChevronLeft color="white" />
-      </button>
+      ></button>
     );
   };
 
   const CustomNextArrow = (props) => {
+    // eslint-disable-next-line react/prop-types
     const { onClick } = props;
     return (
       <button

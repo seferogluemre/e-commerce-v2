@@ -2,7 +2,6 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import "./ProductContent.scss";
-import Footer from "../footer/Footer";
 import { Link } from "react-router-dom";
 
 function ProductContent() {

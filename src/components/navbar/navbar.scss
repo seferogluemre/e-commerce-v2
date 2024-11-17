@@ -14,7 +14,10 @@
     justify-content: center !important;
   }
 }
-
+.product-cart-item {
+  padding: 5px;
+  box-shadow: 0 4px 5px gray;
+}
 .cart {
   overflow-y: auto !important;
   height: 80vh;

@@ -22,6 +22,7 @@ import {
   decreaseItemCount,
   increaseItemCount,
 } from "../../redux/slices/basketSlice";
+// eslint-disable-next-line react/prop-types
 const Star = ({ filled }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -39,6 +40,7 @@ const Star = ({ filled }) => (
   </svg>
 );
 const CustomPrevArrow = (props) => {
+  // eslint-disable-next-line react/prop-types
   const { onClick } = props;
   return (
     <button
@@ -258,6 +260,7 @@ const reviews = [
 ];
 
 const CustomNextArrow = (props) => {
+  // eslint-disable-next-line react/prop-types
   const { onClick } = props;
   return (
     <button
@@ -282,6 +285,7 @@ const CustomNextArrow = (props) => {
   );
 };
 
+// eslint-disable-next-line no-unused-vars
 const settings = {
   dots: true,
   infinite: true,
