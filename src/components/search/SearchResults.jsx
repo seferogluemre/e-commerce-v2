@@ -23,11 +23,11 @@ function SearchResults() {
   const navigate = useNavigate();
   return (
     <>
-      <div className="container-fluid">
+      <div className="container-fluid my-5">
         <div className="container">
           <div className="row">
             {filteredProducts.length > 0 ? ( // {{ edit_1 }}
-              <div className="row ">
+              <div className="row d-flex justify-content-center">
                 {filteredProducts.map(
                   ({ thumbnail, id, price, title, brand }) => {
                     return (

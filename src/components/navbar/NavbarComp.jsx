@@ -17,14 +17,21 @@ import {
 } from "../../redux/slices/basketSlice";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useRef } from "react";
+import { GiHamburgerMenu } from "react-icons/gi";
 
 function NavbarComp() {
   const [isOpen, setIsOpen] = useState(false);
+  const [sideIsOpen, setSideIsOpen] = useState(false);
   const dispatch = useDispatch();
   const [searchTerm, setSearchTerm] = useState("");
-
+  const dropdownRef = useRef(null); // Dropdown için referans
   const toggleDrawer = () => {
     setIsOpen((prevState) => !prevState);
+  };
+  const toggleSidebar = (e) => {
+    e.preventDefault();
+    setSideIsOpen((prevState) => !prevState);
   };
 
   const removeItem = (id) => {
@@ -40,7 +47,6 @@ function NavbarComp() {
   const carts = useSelector((store) => store.carts.items);
 
   const totalPrice = useSelector((store) => store.carts.totalPrice);
-  console.log(totalPrice);
 
   const navigate = useNavigate();
 
@@ -49,6 +55,12 @@ function NavbarComp() {
       navigate(`/search/` + searchTerm);
     }
   };
+  const fetchProducts = useSelector((store) => store.products.fetchProducts);
+
+  const filteredProducts = fetchProducts.filter((product) => {
+    return product.title.toLowerCase().includes(searchTerm.toLowerCase());
+  });
+  // Dropdown açılmasını kontrol et
 
   return (
     <div>
@@ -57,10 +69,15 @@ function NavbarComp() {
           <Navbar.Brand href="/" className="">
             <img
               src={BrandPhoto}
+              className="brand-image"
               width={90}
               height={95}
               style={{ zIndex: 1 }}
               alt="Logo"
+            />
+            <GiHamburgerMenu
+              onClick={toggleSidebar}
+              className="fs-5 d-xxl-none d-lg-none"
             />
           </Navbar.Brand>
           <Navbar.Collapse
@@ -70,11 +87,12 @@ function NavbarComp() {
           >
             <input
               type="text"
+              className="form-control "
               value={searchTerm}
               onKeyDown={handleSearchSubmit}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
-            <Link className="nav-link px-4" to={"/category"}>
+            <Link className="nav-link px-4 category-link" to={"/category"}>
               Kategoriler
             </Link>
             <Link to={"/favorites"}>
@@ -82,10 +100,79 @@ function NavbarComp() {
             </Link>
             <IoCartOutline className="fs-1" onClick={toggleDrawer} />
           </Navbar.Collapse>
+          {searchTerm.length != 0 && filteredProducts.length > 0 && (
+            <div className="dropdown" ref={dropdownRef}>
+              {/* Dropdown referansı */}
+              {filteredProducts.map(({ id, thumbnail, price, title }) => (
+                <div
+                  key={id}
+                  className="dropdown-item"
+                  onClick={() => navigate("/product-detail/" + id)}
+                >
+                  <div>
+                    <img src={thumbnail} alt={title} className="img" />
+                  </div>
+                  <div className="columnTwo">
+                    <h3
+                      style={{
+                        fontSize: "14px",
+                        paddingRight: "80px",
+                        height: "30px",
+                        textWrap: "wrap",
+                      }}
+                    >
+                      Ürün adı: {title}
+                    </h3>
+                    <small style={{ fontSize: "13px", textAlign: "start" }}>
+                      Ürün Fiyat:
+                      <strong
+                        style={{
+                          color: "red",
+                          fontWeight: "bold",
+                          fontSize: "16px",
+                        }}
+                      >
+                        {price}
+                      </strong>
+                    </small>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+          <Drawer
+            open={sideIsOpen}
+            direction="left"
+            className="bla bla bla bg-dark "
+            onClose={toggleSidebar}
+          >
+            <div className="text-end mb-5">
+              <button
+                className="fs-1  bg-dark text-white"
+                onClick={toggleSidebar}
+                style={{ border: "none" }}
+              >
+                <IoCloseSharp />
+              </button>
+            </div>
+            <div>
+              <ul className="list-unstyled align-items-center justify-content-center d-flex flex-column row-gap-3">
+                <Link className="nav-link text-white" to={"/"}>
+                  Ana Sayfa
+                </Link>
+                <Link className="nav-link text-white" to={"/category"}>
+                  Kategoriler
+                </Link>
+                <Link className="nav-link text-white" to={"/favorites"}>
+                  Favoriler
+                </Link>
+              </ul>
+            </div>
+          </Drawer>
           <Drawer
             open={isOpen}
             onClose={toggleDrawer}
-            direction="right"
+            direction="left"
             className="bla bla bla"
             style={{ width: "400px" }}
           >
