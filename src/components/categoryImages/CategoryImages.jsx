@@ -3,12 +3,12 @@ import "./CategoryImages.scss";
 import { Link } from "react-router-dom";
 
 const images = [
-  "/src/components/images/categoryImages/laptoplar.jpg",
-  "/src/components/images/categoryImages/erkekSaa.jpg",
-  "/src/components/images/categoryImages/erkekGiyim.jpg",
-  "/src/components/images/categoryImages/kadınTakıları.jpg",
-  "/src/components/images/categoryImages/kadınGiyim.jpg",
-  "/src/components/images/categoryImages/motorlar.jpg",
+  "/public/images/categoryImages/laptoplar.jpg",
+  "/public/images/categoryImages/erkekSaa.jpg",
+  "/public/images/categoryImages/erkekGiyim.jpg",
+  "/public/images/categoryImages/kadınTakıları.jpg",
+  "/public/images/categoryImages/kadınGiyim.jpg",
+  "/public/images/categoryImages/motorlar.jpg",
 ];
 
 const category = [

@@ -4,9 +4,8 @@ import { Link } from "react-router-dom";
 import { IoCloseSharp } from "react-icons/io5";
 import { IoCartOutline } from "react-icons/io5";
 import Drawer from "react-modern-drawer";
-
+import { IoMdTrash } from "react-icons/io";
 import "react-modern-drawer/dist/index.css";
-
 import { FaHeartCircleBolt } from "react-icons/fa6";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -46,7 +45,7 @@ function NavbarComp() {
         <Container>
           <Navbar.Brand href="/">
             <img
-              src="/src/components/images/logo-removeBg-preview.png"
+              src="/public/images/logo.jpeg"
               width={90}
               height={95}
               style={{ zIndex: 1 }}
@@ -133,7 +132,7 @@ function NavbarComp() {
                           onClick={() => removeItem(item.id)}
                           aria-label="Remove item"
                         >
-                          Remove
+                          <IoMdTrash />
                         </Button>
                       </div>
                     </div>

@@ -71,7 +71,7 @@ function Footer() {
               <div className="flex-column d-flex align-items-center">
                 <div>
                   <img
-                    src="/src/components/images/logo-removeBg-preview.png"
+                    src="/public/images/logo-removeBg-preview.png"
                     width={130}
                     height={130}
                   />
