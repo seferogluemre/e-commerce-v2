@@ -47,6 +47,9 @@ importers:
       react-icons:
         specifier: ^5.3.0
         version: 5.3.0(react@18.3.1)
+      react-modern-drawer:
+        specifier: ^1.4.0
+        version: 1.4.0(react@18.3.1)
       react-redux:
         specifier: ^9.1.2
         version: 9.1.2(@types/react@18.3.12)(react@18.3.1)(redux@5.0.1)
@@ -4419,6 +4422,11 @@ packages:
 
   react-lifecycles-compat@3.0.4:
     resolution: {integrity: sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==}
+
+  react-modern-drawer@1.4.0:
+    resolution: {integrity: sha512-5OkcUstqUdd/CNW9+BvLkzm36R2G54RFXWF2mWCH13cUsz5SNo9aB9KzPRbJp2LEVfRL/u+MgikOWRe7/6wKEQ==}
+    peerDependencies:
+      react: '>16.0.0'
 
   react-redux-toolkit@0.0.1-alpha.2:
     resolution: {integrity: sha512-lxs8RB48nFSEm5ek7wGTIhUEjIeGTVH6F8tG16GdqcMBfJ8Puq4qu5sOpVIwtcGpBY5mvRsozzQ6WfCklrAb5w==}
@@ -10815,6 +10823,10 @@ snapshots:
   react-is@18.3.1: {}
 
   react-lifecycles-compat@3.0.4: {}
+
+  react-modern-drawer@1.4.0(react@18.3.1):
+    dependencies:
+      react: 18.3.1
 
   react-redux-toolkit@0.0.1-alpha.2(react-redux@9.1.2(@types/react@18.3.12)(react@18.3.1)(redux@5.0.1))(react-router-dom@6.27.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-router@6.27.0(react@18.3.1))(react@18.3.1)(redux@5.0.1):
     dependencies:

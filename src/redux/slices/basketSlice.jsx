@@ -1,7 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
+const getLocalCartData = () => {
+  const cartData = localStorage.getItem("basketItems");
+
+  // Eğer localStorage'da veri yoksa ya da 'undefined' saklandıysa boş dizi döndür
+  if (cartData && cartData !== "undefined") {
+    try {
+      return JSON.parse(cartData);
+    } catch (error) {
+      console.error("Error parsing JSON from localStorage:", error);
+      return [];
+    }
+  }
+
+  return [];
+};
 
 const initialState = {
-  items: [],
+  items: getLocalCartData(),
+  totalPrice: 0,
+  cartLength: 0,
 };
 
 const basketSlice = createSlice({
@@ -13,30 +30,39 @@ const basketSlice = createSlice({
         (item) => item.id === action.payload.id
       );
       if (existingItem) {
-        // Eğer ürün zaten sepette varsa, adedini artır
         existingItem.count += action.payload.count;
       } else {
-        // Eğer ürün yoksa, sepete ekle
         state.items.push(action.payload);
-        alert("Sepete Eklendi");
+        confetti();
       }
-      // Sepetteki ürünleri localStorage'a kaydet
+      // Sepet verisini güncelle ve toplam fiyatı hesapla
       localStorage.setItem("basketItems", JSON.stringify(state.items));
+      state.totalPrice = state.items.reduce(
+        (total, item) => total + item.price * item.count,
+        0
+      );
+      state.cartLength = state.items.length;
     },
     removeFromCart: (state, action) => {
-      // Ürünü sepetten çıkar
       state.items = state.items.filter((item) => item.id !== action.payload.id);
-      // Güncellenen sepeti localStorage'a kaydet
       localStorage.setItem("basketItems", JSON.stringify(state.items));
+      state.totalPrice = state.items.reduce(
+        (total, item) => total + item.price * item.count,
+        0
+      );
+      state.cartLength = state.items.length;
     },
     increaseItemCount: (state, action) => {
       const existingItem = state.items.find(
         (item) => item.id === action.payload.id
       );
       if (existingItem) {
-        existingItem.count += 1; // Adedi artır
-        // Güncellenen sepeti localStorage'a kaydet
+        existingItem.count += 1;
         localStorage.setItem("basketItems", JSON.stringify(state.items));
+        state.totalPrice = state.items.reduce(
+          (total, item) => total + item.price * item.count,
+          0
+        );
       }
     },
     decreaseItemCount: (state, action) => {
@@ -45,25 +71,19 @@ const basketSlice = createSlice({
       );
       if (existingItem) {
         if (existingItem.count > 1) {
-          existingItem.count -= 1; // Adedi azalt
-          // Güncellenen sepeti localStorage'a kaydet
-          localStorage.setItem("basketItems", JSON.stringify(state.items));
+          existingItem.count -= 1;
         } else {
           // Eğer adet 1 ise, ürünü sepetten çıkar
           state.items = state.items.filter(
             (item) => item.id !== action.payload.id
           );
-          // Güncellenen sepeti localStorage'a kaydet
-          localStorage.setItem("basketItems", JSON.stringify(state.items));
         }
+        localStorage.setItem("basketItems", JSON.stringify(state.items));
+        state.totalPrice = state.items.reduce(
+          (total, item) => total + item.price * item.count,
+          0
+        );
       }
-    },
-    getTotalPrice: (state) => {
-      // Sepetteki tüm ürünlerin toplam fiyatını hesapla
-      return state.items.reduce(
-        (total, item) => total + item.price * item.count,
-        0
-      );
     },
   },
 });
@@ -73,6 +93,5 @@ export const {
   removeFromCart,
   increaseItemCount,
   decreaseItemCount,
-  getTotalPrice,
 } = basketSlice.actions;
 export default basketSlice.reducer;
