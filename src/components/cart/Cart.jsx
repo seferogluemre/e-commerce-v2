@@ -94,6 +94,13 @@ function Cart() {
                 </div>
               )}
             </div>
+            <div className="col-lg-2 col-md-6 col-sm-12">
+              <div className="d-flex align-items-center text-center justify-content-between total-price-content p-3 bg-light rounded">
+                <div className="fw-semibold text-center">
+                  TOPLAM {totalPrice} Tl
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
