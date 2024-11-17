@@ -18,13 +18,13 @@
 }
 @media (max-width: 576px) {
   .cart-item {
-    width: 250px;
+    width: 360px !important;
     padding: 3px;
   }
   .carts-column {
     margin: 10px auto;
     .col-sm-12 {
-      width: 49% !important;
+      width: 89% !important;
     }
   }
 }

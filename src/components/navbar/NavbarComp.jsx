@@ -1,5 +1,5 @@
 import "./navbar.scss";
-import { Navbar, Container, Button } from "react-bootstrap";
+import { Navbar, Container, Button, Badge } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { IoCloseSharp } from "react-icons/io5";
 import { IoCartOutline } from "react-icons/io5";
@@ -20,7 +20,6 @@ import { useNavigate } from "react-router-dom";
 import { useRef } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useEffect } from "react";
-
 function NavbarComp() {
   const [isOpen, setIsOpen] = useState(false);
   const [sideIsOpen, setSideIsOpen] = useState(false);
@@ -46,7 +45,7 @@ function NavbarComp() {
   };
 
   const carts = useSelector((store) => store.carts.items);
-
+  const cartLength = carts.length;
   const totalPrice = useSelector((store) => store.carts.totalPrice);
 
   const navigate = useNavigate();
@@ -100,6 +99,7 @@ function NavbarComp() {
             <input
               type="text"
               className="form-control "
+              placeholder="Arama...."
               value={searchTerm}
               onKeyDown={handleSearchSubmit}
               onChange={(e) => setSearchTerm(e.target.value)}
@@ -110,8 +110,19 @@ function NavbarComp() {
             <Link to={"/favorites"}>
               <FaHeartCircleBolt className="fs-1 mx-2" />
             </Link>
+
             <IoCartOutline className="fs-1" onClick={toggleDrawer} />
+            <Badge
+              position="absolute"
+              borderRadius="circle"
+              color="black"
+              className="text-black rounded-circle py-1 px-2 badge-content"
+              fontSize="xs"
+            >
+              {cartLength}
+            </Badge>
           </Navbar.Collapse>
+
           {searchTerm.length != 0 && filteredProducts.length > 0 && (
             <div className="dropdown" ref={dropdownRef}>
               {/* Dropdown referansı */}

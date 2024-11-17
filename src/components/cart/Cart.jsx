@@ -31,11 +31,11 @@ function Cart() {
       <div className="container-fluid my-5 cart-item-container">
         <div className="container p-2">
           <div className="row d-flex justify-content-center align-items-start">
-            <div className="col-lg-10 carts-column col-md-8 col-sm-12 d-flex  column-gap-2 justify-content-center">
+            <div className="col-lg-10 carts-column col-md-12 col-sm-12 d-flex flex-wrap  column-gap-2 justify-content-center">
               {carts?.length > 0 ? (
                 carts.map((item) => (
                   <div
-                    className="d-flex  align-items-center text-center col-lg-4 col-md-6 col-sm-12 cart-item flex-column gap-3 3 border rounded mb-4"
+                    className="d-flex align-items-center text-center col-lg-4 col-md-8 col-sm-12 cart-item flex-column gap-3 3 border rounded mb-4"
                     key={item.id}
                   >
                     <div>

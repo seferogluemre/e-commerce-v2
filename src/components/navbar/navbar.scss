@@ -3,12 +3,11 @@
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-between !important;
+
     .navbar-collapse {
       display: flex !important;
       justify-content: end !important;
-      .form-control {
-        width: auto !important;
-      }
+
       .category-link {
         display: none !important;
       }
@@ -35,6 +34,9 @@
   .navbar-collapse {
     display: flex !important;
     justify-content: center !important;
+  }
+  .form-control {
+    width: 200px !important;
   }
 
   .dropdown {
@@ -106,4 +108,7 @@
 .dropdown .img {
   width: 80px;
   height: 75px;
+}
+.form-control {
+  box-shadow: 0 2px 4px gray;
 }

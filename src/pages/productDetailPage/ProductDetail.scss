@@ -41,12 +41,14 @@ $transition-speed: 0.3s;
     }
   }
   .pagination {
+    display: flex;
+    justify-content: center;
     .page-number {
       width: 50px;
-      background-color: #666;
+      box-shadow: 0 2px 4px gray;
       margin: 10px 20px;
       border: none;
-      border-radius: 25%;
+      border-radius: 35%;
     }
   }
 
