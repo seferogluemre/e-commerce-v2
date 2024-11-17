@@ -58,6 +58,13 @@ const basketSlice = createSlice({
         }
       }
     },
+    getTotalPrice: (state) => {
+      // Sepetteki tüm ürünlerin toplam fiyatını hesapla
+      return state.items.reduce(
+        (total, item) => total + item.price * item.count,
+        0
+      );
+    },
   },
 });
 
