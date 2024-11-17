@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import "./ProductContent.scss";
 import { Link } from "react-router-dom";
+import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function ProductContent() {
   const [products, setProducts] = useState({
@@ -13,6 +15,8 @@ function ProductContent() {
     womensJewellery: [],
     motorcycle: [],
   });
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getAllFetchProducts = async () => {
@@ -78,6 +82,7 @@ function ProductContent() {
                     src={product.thumbnail}
                     className="product-image"
                     alt={product.title}
+                    onClick={() => navigate("/product-detail/" + product.id)}
                   />
                 </Col>
               ))}

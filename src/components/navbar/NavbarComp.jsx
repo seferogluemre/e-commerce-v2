@@ -19,6 +19,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useRef } from "react";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { useEffect } from "react";
 
 function NavbarComp() {
   const [isOpen, setIsOpen] = useState(false);
@@ -61,7 +62,18 @@ function NavbarComp() {
     return product.title.toLowerCase().includes(searchTerm.toLowerCase());
   });
   // Dropdown açılmasını kontrol et
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setSearchTerm(""); // Arama terimini sıfırlayarak dropdown'u kapat
+      }
+    };
 
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [dropdownRef]);
   return (
     <div>
       <Navbar expand="lg" className="shadow-lg">
@@ -172,7 +184,7 @@ function NavbarComp() {
           <Drawer
             open={isOpen}
             onClose={toggleDrawer}
-            direction="left"
+            direction="right"
             className="bla bla bla"
             style={{ width: "400px" }}
           >
