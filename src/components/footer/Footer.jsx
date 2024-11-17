@@ -76,9 +76,13 @@ function Footer() {
                 </div>
                 <h4 className="pb-4">Markamız</h4>
                 <div className="d-flex flex-column align-items-center row-gap-2 justify-content-center">
-                  <Link className="nav-link">İletişim</Link>
+                  <Link className="nav-link" to={"/contact"}>
+                    İletişim
+                  </Link>
                   <Link className="nav-link">Hakkımızda</Link>
-                  <Link className="nav-link">Giriş Yap</Link>
+                  <Link className="nav-link" to={"/contact"}>
+                    Giriş Yap
+                  </Link>
                   <Link className="nav-link">Sıkça Sorulan Sorular</Link>
                 </div>
               </div>

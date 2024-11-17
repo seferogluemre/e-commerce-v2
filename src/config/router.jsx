@@ -6,6 +6,7 @@ import Products from "../pages/productsPage/products";
 import Favorites from "/src/pages/favoritesPage/Favorites";
 import Cart from "/src/pages/myCartPage/myCart";
 import SearchPage from "../pages/searchPage/SearchPage";
+import ContactPage from "../pages/contactPage/Contact";
 
 function router() {
   return (
@@ -18,6 +19,7 @@ function router() {
       <Route path="/favorites" element={<Favorites />}></Route>
       <Route path="/sepet" element={<Cart />}></Route>
       <Route path="/search/:search" element={<SearchPage />}></Route>
+      <Route path="/contact" element={<ContactPage />}></Route>
     </Routes>
   );
 }

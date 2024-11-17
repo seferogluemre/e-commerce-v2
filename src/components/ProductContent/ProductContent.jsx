@@ -96,7 +96,7 @@ function ProductContent() {
                 </Col>
               ))}
               <Link
-                className="next-btn btn-danger"
+                className="next-btn "
                 to={`/category/${category.title
                   .replace("Laptoplar", "laptops")
                   .replace("Kadın Giyim", "womens-shoes")

@@ -1,0 +1,40 @@
+.contact-form-wrapper {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+
+  .toggle-form {
+    color: #000;
+    font-size: 1.5rem;
+  }
+
+  .custom-input {
+    background-color: #f8f9fa;
+    border: none;
+    border-radius: 4px;
+    padding: 0.75rem 1rem;
+
+    &:focus {
+      box-shadow: none;
+      border: 1px solid #007bff;
+    }
+  }
+
+  .custom-button {
+    background-color: #3949ab;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    text-transform: uppercase;
+
+    &:hover {
+      background-color: #303f9f;
+    }
+  }
+}
+@media (max-width: 576px) {
+  .custom-input {
+    width: 300px !important;
+  }
+}

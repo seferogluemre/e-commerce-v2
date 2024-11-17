@@ -181,6 +181,9 @@ function NavbarComp() {
                 <Link className="nav-link text-white" to={"/favorites"}>
                   Favoriler
                 </Link>
+                <Link className="nav-link text-white" to={"/contact"}>
+                  İletişim
+                </Link>
               </ul>
             </div>
           </Drawer>
