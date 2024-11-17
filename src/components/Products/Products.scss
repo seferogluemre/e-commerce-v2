@@ -65,21 +65,23 @@
 }
 
 @media (max-width: 578px) {
-  .card {
-    border: 0px !important;
-    width: 180px !important;
-    height: 400px !important;
-    .card-body {
-      padding: 65% 20px;
-    }
-    .card-header {
-      .card-img-overlay {
-        width: 100% !important;
+  .main-product {
+    .card {
+      border: 0px !important;
+      width: 180px !important;
+      height: 400px !important;
+      .card-body {
+        padding: 65% 20px;
+      }
+      .card-header {
+        .card-img-overlay {
+          width: 100% !important;
+        }
       }
     }
   }
   .col-sm-6 {
-    width: 49%;
+    width: 50%;
     flex: 49%;
   }
 }

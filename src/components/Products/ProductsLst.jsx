@@ -60,7 +60,7 @@ function ProductsLst() {
 
   return (
     <div>
-      <Container style={{ marginTop: "90px" }}>
+      <Container className="main-product" style={{ marginTop: "90px" }}>
         <div className="text-center pb-5 fs-3">Öne Çıkanlar</div>
         <Row>
           {products
@@ -69,7 +69,7 @@ function ProductsLst() {
               const isFavorite = favoriteProducts.some((fav) => fav.id === id);
               return (
                 <Col
-                  lg="4"
+                  lg="6"
                   md="6"
                   xxl="3"
                   xl="4"

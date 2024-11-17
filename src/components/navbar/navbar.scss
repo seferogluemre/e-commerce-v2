@@ -41,14 +41,25 @@
 
   .dropdown {
     position: fixed !important;
+    height: 600px !important;
     left: 0% !important;
+    transform: translateY(-10%);
     width: 390px !important;
+    box-shadow: 0 4px 4px gr;
+    text-align: center !important;
     .dropdown-item {
       width: 350px !important;
+
       .columnTwo {
-        padding: 10px 5px;
+        padding: 10px 5px !important;
         text-align: center !important;
-        row-gap: 20px;
+        display: flex !important;
+        text-wrap: nowrap !important;
+        align-items: center;
+        justify-content: center !important;
+        .price-small {
+          transform: translateX(-30%);
+        }
       }
     }
   }
@@ -76,7 +87,7 @@
 .dropdown {
   position: absolute !important;
   top: 120px;
-  height: 550px !important;
+  height: 550px;
   left: 30%;
   width: 650px;
   overflow-y: scroll;
@@ -99,11 +110,13 @@
   box-shadow: 0px 8px 15px gray;
 }
 .dropdown .columnTwo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  padding: 10px;
+  width: 225px;
+  text-wrap: nowrap !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: right !important;
+  flex-direction: column !important;
+  padding: 15px 5px !important;
 }
 .dropdown .img {
   width: 80px;

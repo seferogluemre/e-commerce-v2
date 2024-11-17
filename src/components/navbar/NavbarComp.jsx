@@ -146,17 +146,9 @@ function NavbarComp() {
                     >
                       Ürün adı: {title}
                     </h3>
-                    <small style={{ fontSize: "13px", textAlign: "start" }}>
+                    <small className="price-small">
                       Ürün Fiyat:
-                      <strong
-                        style={{
-                          color: "red",
-                          fontWeight: "bold",
-                          fontSize: "16px",
-                        }}
-                      >
-                        {price}
-                      </strong>
+                      {price}
                     </small>
                   </div>
                 </div>
