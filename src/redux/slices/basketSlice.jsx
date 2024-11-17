@@ -29,6 +29,35 @@ const basketSlice = createSlice({
       // Güncellenen sepeti localStorage'a kaydet
       localStorage.setItem("basketItems", JSON.stringify(state.items));
     },
+    increaseItemCount: (state, action) => {
+      const existingItem = state.items.find(
+        (item) => item.id === action.payload.id
+      );
+      if (existingItem) {
+        existingItem.count += 1; // Adedi artır
+        // Güncellenen sepeti localStorage'a kaydet
+        localStorage.setItem("basketItems", JSON.stringify(state.items));
+      }
+    },
+    decreaseItemCount: (state, action) => {
+      const existingItem = state.items.find(
+        (item) => item.id === action.payload.id
+      );
+      if (existingItem) {
+        if (existingItem.count > 1) {
+          existingItem.count -= 1; // Adedi azalt
+          // Güncellenen sepeti localStorage'a kaydet
+          localStorage.setItem("basketItems", JSON.stringify(state.items));
+        } else {
+          // Eğer adet 1 ise, ürünü sepetten çıkar
+          state.items = state.items.filter(
+            (item) => item.id !== action.payload.id
+          );
+          // Güncellenen sepeti localStorage'a kaydet
+          localStorage.setItem("basketItems", JSON.stringify(state.items));
+        }
+      }
+    },
   },
 });
 
