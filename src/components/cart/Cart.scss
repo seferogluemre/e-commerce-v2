@@ -1,0 +1,30 @@
+.cart-item-container {
+  .cart-item {
+    width: 260px;
+    box-shadow: 0 3px 6px gray;
+    transition: 0.2s ease-in-out;
+    &:hover {
+      box-shadow: 0 5px 10px rgb(87, 87, 87);
+    }
+  }
+
+  .total-price-content {
+    box-shadow: 0 4px 6px gray;
+    transition: 0.2s ease-in-out;
+    &:hover {
+      box-shadow: 0 5px 10px rgb(107, 107, 107);
+    }
+  }
+}
+@media (max-width: 576px) {
+  .cart-item {
+    width: 250px;
+    padding: 3px;
+  }
+  .carts-column {
+    margin: 10px auto;
+    .col-sm-12 {
+      width: 49% !important;
+    }
+  }
+}

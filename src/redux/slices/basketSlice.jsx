@@ -73,10 +73,7 @@ const basketSlice = createSlice({
         if (existingItem.count > 1) {
           existingItem.count -= 1;
         } else {
-          // Eğer adet 1 ise, ürünü sepetten çıkar
-          state.items = state.items.filter(
-            (item) => item.id !== action.payload.id
-          );
+          ""
         }
         localStorage.setItem("basketItems", JSON.stringify(state.items));
         state.totalPrice = state.items.reduce(

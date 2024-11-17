@@ -15,6 +15,7 @@ import {
   increaseItemCount,
 } from "../../redux/slices/basketSlice";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function NavbarComp() {
   const [isOpen, setIsOpen] = useState(false);
@@ -38,6 +39,8 @@ function NavbarComp() {
 
   const totalPrice = useSelector((store) => store.carts.totalPrice);
   console.log(totalPrice);
+
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -143,7 +146,11 @@ function NavbarComp() {
                 {carts.length <= 0 ? (
                   ""
                 ) : (
-                  <Button variant="primary" className="w-100 py-2 fw-semibold">
+                  <Button
+                    variant="primary"
+                    onClick={() => navigate("/sepet")}
+                    className="w-100 py-2 fw-semibold"
+                  >
                     DEVAM ET
                   </Button>
                 )}
