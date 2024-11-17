@@ -17,6 +17,11 @@ import { FiMinus } from "react-icons/fi";
 import { SiAdguard } from "react-icons/si";
 
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import {
+  addToCart,
+  decreaseItemCount,
+  increaseItemCount,
+} from "../../redux/slices/basketSlice";
 const Star = ({ filled }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -339,6 +344,34 @@ function ProductDetail() {
     setRatingDistribution(distribution);
   }, []);
 
+  // Ürün Ekleme  --------------------
+  const addToBasketCart = () => {
+    if (count <= 0) return;
+    const payload = {
+      id,
+      price,
+      title,
+      description,
+      thumbnail,
+      count: count,
+    };
+    dispatch(addToCart(payload));
+    console.log("Ürün sepete eklendi:", payload);
+  };
+
+  // Adet arttırma
+  const handleIncreaseCount = () => {
+    setCount(count + 1);
+    dispatch(increaseItemCount({ id })); // Adet artırma
+  };
+  // Adet  azaltma
+  const handleDecreaseCount = () => {
+    if (count > 1) {
+      setCount(count - 1);
+      dispatch(decreaseItemCount({ id })); // Adet azaltma
+    }
+  };
+
   const indexOfLastReview = currentPage * reviewsPerPage;
   const indexOfFirstReview = indexOfLastReview - reviewsPerPage;
   const currentReviews = reviews.slice(indexOfFirstReview, indexOfLastReview);
@@ -361,20 +394,6 @@ function ProductDetail() {
       getProductById();
     }
   }, [data, id, getProductById]);
-
-  const addToBasketCart = () => {
-    if (count <= 0) return;
-    const payload = {
-      id,
-      price,
-      title,
-      description,
-      thumbnail,
-      count: count,
-    };
-    dispatch(addToCart(payload));
-    console.log("Ürün sepete eklendi:", payload);
-  };
 
   return (
     <div>
@@ -401,17 +420,11 @@ function ProductDetail() {
               <div className="text-danger fs-5 my-2">{data.price}$</div>
               <div className="d-flex column-gap-3 my-4 justify-content-center">
                 <div className="increase-decrease-content">
-                  <IoMdAdd
-                    className="fs-3"
-                    onClick={() => setCount(count + 1)}
-                  />
+                  <IoMdAdd className="fs-3" onClick={handleIncreaseCount} />
                 </div>
                 <div className="fw-bold">{count}</div>
                 <div className="increase-decrease-content">
-                  <FiMinus
-                    className="fs-3"
-                    onClick={() => setCount(count > 1 ? count - 1 : 1)}
-                  />
+                  <FiMinus className="fs-3" onClick={handleDecreaseCount} />
                 </div>
                 <div className="text-end">
                   <Button className="btn-warning" onClick={addToBasketCart}>
@@ -436,7 +449,7 @@ function ProductDetail() {
               <div className="mt-3">
                 <strong>
                   {data.warrantyInformation === "Lifetime warranty"
-                    ? "Ömür boyu garanti"
+                    ? "6 Ay Garantili"
                     : "Garantisi Yok"}
                 </strong>
               </div>
