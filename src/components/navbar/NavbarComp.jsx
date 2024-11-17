@@ -9,6 +9,7 @@ import "react-modern-drawer/dist/index.css";
 import { FaHeartCircleBolt } from "react-icons/fa6";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import BrandPhoto from "/public/images/logo-removeBg-preview.png";
 import {
   decreaseItemCount,
   removeFromCart,
@@ -48,7 +49,7 @@ function NavbarComp() {
         <Container>
           <Navbar.Brand href="/">
             <img
-              src="../../../public/images/logo.jpeg"
+              src={BrandPhoto}
               width={90}
               height={95}
               style={{ zIndex: 1 }}

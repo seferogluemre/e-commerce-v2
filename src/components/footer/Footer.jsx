@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
 import { FaProductHunt } from "react-icons/fa";
 import { BiCategory } from "react-icons/bi";
+import BrandPhoto from "/public/images/logo-removeBg-preview.png";
+
 function Footer() {
   return (
     <>
@@ -70,11 +72,7 @@ function Footer() {
             <div className="col-lg-4 col-md-6 col-sm-12 col-xl-4">
               <div className="flex-column d-flex align-items-center">
                 <div>
-                  <img
-                    src="/public/images/logo-removeBg-preview.png"
-                    width={130}
-                    height={130}
-                  />
+                  <img src={BrandPhoto} width={130} height={130} />
                 </div>
                 <h4 className="pb-4">Markamız</h4>
                 <div className="d-flex flex-column align-items-center row-gap-2 justify-content-center">

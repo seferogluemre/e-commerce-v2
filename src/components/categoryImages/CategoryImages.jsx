@@ -1,14 +1,19 @@
 import { Container, Row } from "react-bootstrap";
 import "./CategoryImages.scss";
 import { Link } from "react-router-dom";
-
+import LaptoplarImages from "/public/images/categoryImages/laptoplar.jpg";
+import ErkekSaat from "/public/images/categoryImages/erkekSaa.jpg";
+import ErkekGiyim from "/public/images/categoryImages/erkekGiyim.jpg";
+import KadınTakıları from "/public/images/categoryImages/kadınTakıları.jpg";
+import KadınGiyim from "/public/images/categoryImages/kadınGiyim.jpg";
+import Motorlar from "/public/images/categoryImages/motorlar.jpg";
 const images = [
-  "/public/images/categoryImages/laptoplar.jpg",
-  "/public/images/categoryImages/erkekSaa.jpg",
-  "/public/images/categoryImages/erkekGiyim.jpg",
-  "/public/images/categoryImages/kadınTakıları.jpg",
-  "/public/images/categoryImages/kadınGiyim.jpg",
-  "/public/images/categoryImages/motorlar.jpg",
+  LaptoplarImages,
+  ErkekSaat,
+  ErkekGiyim,
+  KadınTakıları,
+  KadınGiyim,
+  Motorlar,
 ];
 
 const category = [
