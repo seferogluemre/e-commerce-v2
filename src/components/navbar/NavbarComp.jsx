@@ -114,8 +114,7 @@ function NavbarComp() {
             <IoCartOutline className="fs-1" onClick={toggleDrawer} />
             <Badge
               position="absolute"
-              borderRadius="circle"
-              color="black"
+              style={{ borderRadius: "50%", color: "black" }}
               className="text-black rounded-circle py-1 px-2 badge-content"
               fontSize="xs"
             >
