@@ -1,8 +1,6 @@
-# React + Vite
+React Project: E-Commerce Platform with DummyJSON
+This project is a fully-featured E-commerce platform built with React, utilizing DummyJSON for product data. The application presents an attractive homepage displaying a variety of products, with the option for users to view detailed product pages.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Users can filter products by category across six different sections, each displayed on its own dedicated page. The platform supports key e-commerce functionalities such as adding, updating, and removing items from the shopping cart, as well as adding or removing items from the favorites list. The app also features a sleek cart design, a favorites page, and a functional search bar that allows users to find products easily across all pages.
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+With a focus on a clean, modern design and user experience, this project demonstrates practical use of React components, state management, and routing for building a smooth and responsive online store.
